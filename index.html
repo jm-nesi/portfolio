@@ -12,204 +12,342 @@
     <link rel="stylesheet" href="assets/site.css">
     <script>
         try { const t = localStorage.getItem('pf-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+        document.documentElement.classList.add('js');
     </script>
 </head>
 <body>
 
-<header class="nav">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
     <div class="wrap nav-inner">
-        <a href="#top" class="logo">2026<span>.</span></a>
-        <nav aria-label="Sections">
+        <a href="#top" class="logo" aria-label="Jones Mikko Lapeceros, back to top">
+            <span class="logo-mark">JL</span>
+            <span class="logo-name">Jones Mikko Lapeceros</span>
+        </a>
+        <nav class="nav-links" aria-label="Sections">
             <a href="#projects">Projects</a>
-            <a href="#work">How I work</a>
+            <a href="#case-hr">Case study</a>
             <a href="#experience">Experience</a>
             <a href="#contact">Contact</a>
         </nav>
-        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+        <div class="nav-actions">
+            <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+                <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <a class="btn btn-primary btn-sm" href="mailto:jmlapeceros.tech@gmail.com">Hire me</a>
+        </div>
     </div>
 </header>
 
-<main id="top">
+<main id="main">
     <!-- ==================== HERO ==================== -->
-    <section class="hero wrap">
-        <p class="eyebrow">Systems Developer · Davao City, Philippines</p>
-        <h1>I build the internal systems<br>an HR team runs on every day.</h1>
-        <p class="lead">Two years developing and maintaining an integrated HR information system for a staffing and BPO company: an HR back office and an employee self-service portal that share one live database. I cover employee records, attendance, leave, overtime and payroll inputs.</p>
-        <div class="cta">
-            <a class="btn btn-primary" href="demo/hr/index.html">Try the HR back office →</a>
-            <a class="btn" href="demo/portal/index.html">Try the Employee Portal →</a>
+    <section class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div class="hero-copy">
+                <span class="badge"><i aria-hidden="true"></i>Open to new roles · Davao City, Philippines</span>
+                <h1>I build the internal systems an <span class="hl">HR team runs on</span> every day.</h1>
+                <p class="lead">Systems developer with two years of building and maintaining an integrated HR information system for a staffing and BPO company. It's an HR back office and an employee self-service portal that share one live database, covering records, attendance, leave, overtime and payroll inputs.</p>
+                <div class="cta">
+                    <a class="btn btn-primary" href="demo/hr/index.html" target="_blank" rel="noopener">Try the HR back office <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+                    <a class="btn" href="demo/portal/index.html" target="_blank" rel="noopener">Try the Employee Portal <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+                </div>
+                <ul class="hero-meta" aria-label="Quick facts">
+                    <li><strong>Laravel 13</strong> · Livewire 4</li>
+                    <li><strong>MySQL</strong> · Linux</li>
+                    <li><strong>BS CpE</strong> · DOST-SEI Scholar</li>
+                </ul>
+            </div>
+
+            <div class="hero-art" aria-hidden="true">
+                <a class="window window-back" href="demo/portal/index.html" target="_blank" rel="noopener" tabindex="-1">
+                    <div class="chrome"><i></i><i></i><i></i><span>portal.acmestaffing.demo</span></div>
+                    <div class="mock mock-portal">
+                        <div class="mock-rail"><i class="mk-gold"></i><i class="on"></i><i></i><i></i><i></i></div>
+                        <div class="mock-body"><div class="mock-hello"></div><div class="mock-cards"><i class="hero"></i><i></i></div><div class="mock-cal"><i></i><i class="g"></i><i></i><i class="g"></i><i class="y"></i><i></i><i></i><i class="g"></i><i></i><i></i><i class="g"></i><i></i><i class="y"></i><i></i></div></div>
+                    </div>
+                </a>
+                <a class="window window-front" href="demo/hr/index.html" target="_blank" rel="noopener" tabindex="-1">
+                    <div class="chrome"><i></i><i></i><i></i><span>hr.acmestaffing.demo</span></div>
+                    <div class="mock mock-hr">
+                        <div class="mock-side"><i class="mk-brand"></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+                        <div class="mock-body"><div class="mock-kpis"><i></i><i></i><i></i><i></i><i></i></div><div class="mock-chart"><b style="height:62%"></b><b style="height:74%"></b><b style="height:58%"></b><b style="height:80%"></b><b style="height:70%"></b><b style="height:86%"></b><b style="height:66%"></b></div><div class="mock-rows"><i></i><i></i><i></i></div></div>
+                    </div>
+                </a>
+            </div>
         </div>
-        <ul class="stats" aria-label="At a glance">
-            <li><strong>4</strong><span>production apps maintained</span></li>
-            <li><strong>25+</strong><span>HR modules rebuilt or built</span></li>
-            <li><strong>~600</strong><span>daily employee users</span></li>
-            <li><strong>0</strong><span>downtime during the legacy migration</span></li>
-        </ul>
-        <p class="note">Numbers are approximate. Edit them to match your own figures.</p>
+
+        <div class="wrap">
+            <ul class="stats" aria-label="At a glance">
+                <li><strong data-count="4">4</strong><span>production apps maintained</span></li>
+                <li><strong data-count="25" data-suffix="+">25+</strong><span>HR modules rebuilt or built</span></li>
+                <li><strong data-count="600" data-prefix="~">~600</strong><span>daily employee users</span></li>
+                <li><strong data-count="0">0</strong><span>downtime during the legacy migration</span></li>
+            </ul>
+        </div>
     </section>
 
-    <!-- ==================== SKILLS ==================== -->
-    <section class="wrap section" aria-labelledby="skillsTitle">
-        <h2 id="skillsTitle" class="section-title">Toolbox</h2>
+    <!-- ==================== TOOLBOX ==================== -->
+    <section class="section wrap reveal" aria-labelledby="skillsTitle">
+        <div class="section-head">
+            <span class="kicker">Toolbox</span>
+            <h2 id="skillsTitle">What I work with</h2>
+        </div>
         <div class="skills">
-            <div><h3>Backend</h3><p>PHP 8.3 · Laravel 13 · Livewire 4 · Eloquent · MySQL / MariaDB · REST endpoints · DomPDF · scheduled jobs</p></div>
-            <div><h3>Frontend</h3><p>Blade · Alpine.js · Tailwind CSS · a hand-built CSS design system (tokens, dark mode) · vanilla JS · accessible tables and forms</p></div>
-            <div><h3>Operations</h3><p>Linux servers (CloudPanel) · Git · SSH · Nginx · database backups before migrations · legacy PHP maintenance</p></div>
-            <div><h3>Domain</h3><p>Attendance and shift rules (incl. graveyard shifts) · leave credits and protocols · infractions and points · HMO · employee movements</p></div>
+            <article class="skill">
+                <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z"/></svg></span>
+                <h3>Backend</h3>
+                <ul class="chips"><li>PHP 8.3</li><li>Laravel 13</li><li>Livewire 4</li><li>Eloquent</li><li>MySQL / MariaDB</li><li>REST endpoints</li><li>DomPDF</li><li>Scheduled jobs</li></ul>
+            </article>
+            <article class="skill">
+                <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42"/></svg></span>
+                <h3>Frontend</h3>
+                <ul class="chips"><li>Blade</li><li>Alpine.js</li><li>Tailwind CSS</li><li>CSS design system</li><li>Dark mode</li><li>Vanilla JS</li><li>Accessible tables &amp; forms</li></ul>
+            </article>
+            <article class="skill">
+                <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5M5.25 14.25a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6M21.75 11.25a3 3 0 0 1-3 3M2.25 11.25a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3M6.75 17.25h.008v.008H6.75v-.008Zm0-6h.008v.008H6.75v-.008Z"/></svg></span>
+                <h3>Operations</h3>
+                <ul class="chips"><li>Linux (CloudPanel)</li><li>Git</li><li>SSH</li><li>Nginx</li><li>Backups before migrations</li><li>Legacy PHP</li></ul>
+            </article>
+            <article class="skill">
+                <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></span>
+                <h3>HR domain</h3>
+                <ul class="chips"><li>Shift rules incl. graveyard</li><li>Leave credits &amp; protocols</li><li>Infractions &amp; points</li><li>HMO</li><li>Employee movements</li><li>Payroll inputs</li></ul>
+            </article>
         </div>
     </section>
 
     <!-- ==================== PROJECTS ==================== -->
-    <section class="wrap section" id="projects" aria-labelledby="projTitle">
-        <h2 id="projTitle" class="section-title">Featured projects</h2>
-        <p class="section-sub">Both demos are static copies with made-up data. The real systems run on a company server, so the company name, people and figures here are fictional.</p>
+    <section class="section wrap" id="projects" aria-labelledby="projTitle">
+        <div class="section-head reveal">
+            <span class="kicker">Featured projects</span>
+            <h2 id="projTitle">Two production systems, one live database</h2>
+            <p>Both demos are static copies with made-up data, and they open in a new tab. The real systems run on a company server, so the company name, people and figures here are fictional.</p>
+        </div>
 
-        <article class="project">
-            <a class="shot" href="demo/hr/index.html" aria-label="Open the HR back-office demo">
-                <div class="mock mock-hr" aria-hidden="true">
-                    <div class="mock-side"><i class="mk-brand"></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
-                    <div class="mock-body"><div class="mock-top"></div><div class="mock-kpis"><i></i><i></i><i></i><i></i></div><div class="mock-chart"><b style="height:60%"></b><b style="height:75%"></b><b style="height:55%"></b><b style="height:80%"></b><b style="height:70%"></b><b style="height:85%"></b><b style="height:65%"></b><b style="height:78%"></b></div><div class="mock-rows"><i></i><i></i><i></i></div></div>
+        <article class="project reveal">
+            <a class="frame" href="demo/hr/index.html" target="_blank" rel="noopener" aria-label="Open the HR back-office demo in a new tab">
+                <div class="chrome"><i></i><i></i><i></i><span>hr.acmestaffing.demo</span></div>
+                <div class="mock mock-hr mock-lg" aria-hidden="true">
+                    <div class="mock-side"><i class="mk-brand"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                    <div class="mock-body"><div class="mock-top"></div><div class="mock-kpis"><i></i><i></i><i></i><i></i><i></i></div><div class="mock-chart"><b style="height:60%"></b><b style="height:75%"></b><b style="height:55%"></b><b style="height:80%"></b><b style="height:70%"></b><b style="height:85%"></b><b style="height:65%"></b><b style="height:78%"></b></div><div class="mock-rows"><i></i><i></i><i></i></div></div>
                 </div>
-                <span class="url">hr.acmestaffing.demo</span>
+                <span class="frame-cta">Open live demo ↗</span>
             </a>
             <div class="project-body">
-                <p class="eyebrow">HR back office · Laravel 13 + Livewire 4</p>
+                <span class="kicker">HR back office · Laravel 13 + Livewire 4</span>
                 <h3>HR Portal: integrated HRIS</h3>
                 <p>The internal system HR uses to manage people, attendance and every employee request. I rebuilt it module by module from a legacy plain-PHP site, while the old site kept running on the same live database.</p>
-                <ul class="points">
-                    <li><strong>Request queues:</strong> leave, time adjustments, overtime, emergency early-out, movement, work-from-home and site transfer. They share one list component, bulk actions and live sidebar counters.</li>
-                    <li><strong>Attendance correctness:</strong> the legacy summary rewrote attendance remarks every time someone opened the page, so payroll could read unfinished data. I moved that logic into a single finalizer that runs on save.</li>
-                    <li><strong>Safe writes:</strong> anything that touches attendance or leave credits is written only on an explicit HR confirm, and each change is recorded in an audit trail (HR Edit History).</li>
-                    <li><strong>Design system:</strong> token-based CSS (<code>theme.css → ui.css → page.css</code>) with dark mode. It replaced a 400 KB runtime Tailwind CDN script.</li>
-                    <li><strong>Setup tools:</strong> leave credits, leave protocols (daily slot limits per team and shift), HMO eligibility, and trackers for points, regularization and movements.</li>
+                <ul class="features">
+                    <li><strong>Request queues.</strong> Leave, time adjustments, overtime, emergency early-out, movement, work-from-home and site transfer. They share one list component, bulk actions and live sidebar counters.</li>
+                    <li><strong>Attendance correctness.</strong> The legacy summary rewrote remarks every time the page opened, so payroll could read unfinished data. I moved that logic into a single finalizer that runs on save.</li>
+                    <li><strong>Safe writes.</strong> Anything that touches attendance or leave credits is written only on an explicit HR confirm, and every change is recorded in an audit trail.</li>
+                    <li><strong>Design system.</strong> Token-based CSS (<code>theme.css → ui.css → page.css</code>) with dark mode. It replaced a 400 KB runtime Tailwind CDN script.</li>
+                    <li><strong>Setup tools.</strong> Leave credits, leave protocols (daily slot limits per team and shift), HMO eligibility, and trackers for points, regularization and movements.</li>
                 </ul>
-                <div class="tags"><span>Laravel</span><span>Livewire</span><span>MySQL</span><span>Alpine.js</span><span>CSS design system</span><span>CSV exports</span></div>
-                <div class="cta"><a class="btn btn-primary" href="demo/hr/index.html">Open live demo</a><a class="btn" href="#case-hr">Read the case study</a></div>
+                <ul class="tags"><li>Laravel</li><li>Livewire</li><li>MySQL</li><li>Alpine.js</li><li>CSS design system</li><li>CSV exports</li></ul>
+                <div class="cta">
+                    <a class="btn btn-primary" href="demo/hr/index.html" target="_blank" rel="noopener">Open live demo <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+                    <a class="btn" href="#case-hr">Read the case study</a>
+                </div>
             </div>
         </article>
 
-        <article class="project">
-            <a class="shot" href="demo/portal/index.html" aria-label="Open the Employee Portal demo">
-                <div class="mock mock-portal" aria-hidden="true">
+        <article class="project project-flip reveal">
+            <a class="frame" href="demo/portal/index.html" target="_blank" rel="noopener" aria-label="Open the Employee Portal demo in a new tab">
+                <div class="chrome"><i></i><i></i><i></i><span>portal.acmestaffing.demo</span></div>
+                <div class="mock mock-portal mock-lg" aria-hidden="true">
                     <div class="mock-rail"><i class="mk-gold"></i><i class="on"></i><i></i><i></i><i></i></div>
                     <div class="mock-body"><div class="mock-hello"></div><div class="mock-cards"><i class="hero"></i><i></i><i></i></div><div class="mock-cal"><i></i><i></i><i class="g"></i><i></i><i class="y"></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i class="g"></i><i class="y"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i></div></div>
                 </div>
-                <span class="url">portal.acmestaffing.demo</span>
+                <span class="frame-cta">Open live demo ↗</span>
             </a>
             <div class="project-body">
-                <p class="eyebrow">Employee self-service · Laravel 13 + Tailwind</p>
+                <span class="kicker">Employee self-service · Laravel 13 + Tailwind</span>
                 <h3>Employee Portal</h3>
                 <p>The portal every employee uses to time in, check attendance, file requests and download payslips. Team leaders also use it to approve their team's requests. Everything feeds the HR back office in real time.</p>
-                <ul class="points">
-                    <li><strong>Dashboard:</strong> server clock and time-in, cut-off progress, leave balances, infraction points and announcements.</li>
-                    <li><strong>Apply flows:</strong> leave, time adjustment, overtime, emergency early-out and work-from-home, with validation against credits and leave protocols.</li>
-                    <li><strong>Approvals:</strong> a role-aware menu, so only approvers see team queues, with remarks and a notification inbox.</li>
-                    <li><strong>Records:</strong> PDF payslips (DomPDF), attendance calendar, infractions, memos and the company handbook.</li>
-                    <li><strong>Themes:</strong> light, dark and brand presets, plus seasonal themes an admin can switch on.</li>
+                <ul class="features">
+                    <li><strong>Dashboard.</strong> Server clock and time-in, cut-off progress, leave balances, infraction points and announcements.</li>
+                    <li><strong>Apply flows.</strong> Leave, time adjustment, overtime, emergency early-out and work-from-home, with validation against credits and leave protocols.</li>
+                    <li><strong>Approvals.</strong> A role-aware menu, so only approvers see team queues, with remarks and a notification inbox.</li>
+                    <li><strong>Records.</strong> PDF payslips (DomPDF), attendance calendar, infractions, memos and the company handbook.</li>
+                    <li><strong>Themes.</strong> Light, dark and brand presets, plus seasonal themes an admin can switch on.</li>
                 </ul>
-                <div class="tags"><span>Laravel</span><span>Tailwind CSS</span><span>DomPDF</span><span>Role-based menus</span><span>Notifications</span></div>
-                <div class="cta"><a class="btn btn-primary" href="demo/portal/index.html">Open live demo</a></div>
+                <ul class="tags"><li>Laravel</li><li>Tailwind CSS</li><li>DomPDF</li><li>Role-based menus</li><li>Notifications</li></ul>
+                <div class="cta">
+                    <a class="btn btn-primary" href="demo/portal/index.html" target="_blank" rel="noopener">Open live demo <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+                </div>
             </div>
         </article>
     </section>
 
     <!-- ==================== CASE STUDY ==================== -->
-    <section class="wrap section" id="case-hr" aria-labelledby="caseTitle">
-        <h2 id="caseTitle" class="section-title">Case study: replacing a legacy HRIS without stopping it</h2>
-        <div class="case">
-            <div>
-                <h3>The situation</h3>
-                <p>HR, accounting and IT relied on a decade-old plain-PHP site. Each page had its own SQL, and business rules were copied across folders. The database was shared with payroll-facing pages, so it couldn't be taken offline or reshaped.</p>
+    <section class="section section-tint" id="case-hr" aria-labelledby="caseTitle">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="kicker">Case study</span>
+                <h2 id="caseTitle">Replacing a legacy HRIS without stopping it</h2>
             </div>
-            <div>
-                <h3>The approach</h3>
-                <ul class="points">
-                    <li>I rebuilt one module at a time on a new subdomain, reading the same tables, so HR could switch over page by page.</li>
-                    <li>I treated each legacy page as the spec. I read the old code first, recorded each rule in a design note, and asked the owner before changing any pay, attendance or leave rule.</li>
-                    <li>Logic lives in services and writer classes, with thin Livewire components. Reads are kept apart from the few deliberate writes.</li>
-                    <li>A verified database backup runs before every migration. Destructive commands are never run against production.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>The result</h3>
-                <ul class="points">
-                    <li>Attendance remarks are now final when they're saved, not when someone opens a report.</li>
-                    <li>All request queues show live counts in one place. HR stopped checking seven separate legacy pages.</li>
-                    <li>One shared visual language, dark mode, and pages that work on a phone.</li>
-                    <li>A living design note for each module, so the next developer can pick it up.</li>
-                </ul>
-            </div>
+            <ol class="steps">
+                <li class="step reveal">
+                    <span class="step-n">01</span>
+                    <h3>The situation</h3>
+                    <p>HR, accounting and IT relied on a decade-old plain-PHP site. Each page had its own SQL, and business rules were copied across folders. The database was shared with payroll-facing pages, so it couldn't be taken offline or reshaped.</p>
+                </li>
+                <li class="step reveal">
+                    <span class="step-n">02</span>
+                    <h3>The approach</h3>
+                    <ul class="features compact">
+                        <li>I rebuilt one module at a time on a new subdomain, reading the same tables, so HR could switch over page by page.</li>
+                        <li>I treated each legacy page as the spec and recorded every rule in a design note. The owner signed off on any change to a pay, attendance or leave rule.</li>
+                        <li>Logic lives in services and writer classes, with thin Livewire components.</li>
+                        <li>A verified database backup runs before every migration.</li>
+                    </ul>
+                </li>
+                <li class="step step-result reveal">
+                    <span class="step-n">03</span>
+                    <h3>The result</h3>
+                    <ul class="features compact">
+                        <li>Attendance remarks are final when they're saved, not when someone opens a report.</li>
+                        <li>All request queues show live counts in one place, so HR no longer checks seven separate pages.</li>
+                        <li>One shared visual language, dark mode, and pages that work on a phone.</li>
+                        <li>A living design note for each module, so the next developer can pick it up.</li>
+                    </ul>
+                </li>
+            </ol>
         </div>
     </section>
 
     <!-- ==================== HOW I WORK ==================== -->
-    <section class="wrap section" id="work" aria-labelledby="workTitle">
-        <h2 id="workTitle" class="section-title">How I work</h2>
+    <section class="section wrap" id="work" aria-labelledby="workTitle">
+        <div class="section-head reveal">
+            <span class="kicker">How I work</span>
+            <h2 id="workTitle">Principles I don't skip</h2>
+        </div>
         <div class="principles">
-            <div><span>01</span><h3>Production is sacred</h3><p>Backups before migrations, writes only on explicit confirmation, and no tests that could touch the live HR database.</p></div>
-            <div><span>02</span><h3>The legacy code is the spec</h3><p>I read the old behaviour before rebuilding it, and when a business rule changes, the owner signs off first.</p></div>
-            <div><span>03</span><h3>Consistency over novelty</h3><p>Shared components and design tokens, so a fix on one page is a fix on every page.</p></div>
-            <div><span>04</span><h3>Write it down</h3><p>Every module has a design note and change log, plus a manual test checklist for the people who use it.</p></div>
+            <article class="reveal"><span>01</span><h3>Production is sacred</h3><p>Backups before migrations, writes only on explicit confirmation, and no tests that could touch the live HR database.</p></article>
+            <article class="reveal"><span>02</span><h3>The legacy code is the spec</h3><p>I read the old behaviour before rebuilding it, and when a business rule changes, the owner signs off first.</p></article>
+            <article class="reveal"><span>03</span><h3>Consistency over novelty</h3><p>Shared components and design tokens, so a fix on one page is a fix on every page.</p></article>
+            <article class="reveal"><span>04</span><h3>Write it down</h3><p>Every module has a design note and change log, plus a manual test checklist for the people who use it.</p></article>
         </div>
     </section>
 
     <!-- ==================== EXPERIENCE ==================== -->
-    <section class="wrap section" id="experience" aria-labelledby="expTitle">
-        <h2 id="expTitle" class="section-title">Experience</h2>
-        <ol class="timeline">
-            <li>
-                <p class="when">December 2024 – Present</p>
-                <h3>Systems Developer · Northeast Solutions Inc</h3>
-                <ul class="points">
-                    <li>Maintain and extend the company HRIS (HR back office) and the employee self-service portal, used daily by HR and every employee.</li>
-                    <li>Lead the migration of the legacy PHP HR site to Laravel 13 + Livewire 4: people, attendance, requests, setup, trackers and admin modules.</li>
-                    <li>Built the employee portal's apply and approval flows, PDF payslips, notifications and theme system.</li>
-                    <li>Handle production support: data fixes, attendance corrections, exports for payroll and management, and server upkeep.</li>
-                </ul>
-            </li>
-            <li>
-                <p class="when">August 2024 – January 2025</p>
-                <h3>Part-time Software Developer · CliqueHA</h3>
-                <ul class="points">
-                    <li>Create system documentation and user guides.</li>
-                    <li>Create system flowcharts for development and testing.</li>
-                </ul>
-            </li>
-            <li>
-                <p class="when">2024</p>
-                <h3>BS Computer Engineering · University of Mindanao - Matina</h3>
-                <p>Thesis: "Flood Detection Through Drainage Monitoring"</p>
-                <p>Deans Lister</p>
-                <p>DOST-SEI Scholar</p>
-            </li>
-        </ol>
+    <section class="section wrap" id="experience" aria-labelledby="expTitle">
+        <div class="section-head reveal">
+            <span class="kicker">Experience</span>
+            <h2 id="expTitle">Where I've worked</h2>
+        </div>
+        <div class="exp-grid">
+            <ol class="timeline">
+                <li class="reveal">
+                    <div class="tl-head">
+                        <span class="org">NS</span>
+                        <div><h3>Systems Developer</h3><p class="org-name">Northeast Solutions Inc</p></div>
+                        <span class="when">Dec 2024 – Present</span>
+                    </div>
+                    <ul class="features compact">
+                        <li>Maintain and extend the company HRIS (HR back office) and the employee self-service portal, used daily by HR and every employee.</li>
+                        <li>Lead the migration of the legacy PHP HR site to Laravel 13 + Livewire 4: people, attendance, requests, setup, trackers and admin modules.</li>
+                        <li>Built the employee portal's apply and approval flows, PDF payslips, notifications and theme system.</li>
+                        <li>Handle production support: data fixes, attendance corrections, exports for payroll and management, and server upkeep.</li>
+                    </ul>
+                </li>
+                <li class="reveal">
+                    <div class="tl-head">
+                        <span class="org">CQ</span>
+                        <div><h3>Part-time Software Developer</h3><p class="org-name">CliqueHA</p></div>
+                        <span class="when">Aug 2024 – Jan 2025</span>
+                    </div>
+                    <ul class="features compact">
+                        <li>Wrote system documentation and user guides.</li>
+                        <li>Drew system flowcharts for development and testing.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <aside class="edu reveal" aria-label="Education">
+                <span class="kicker">Education</span>
+                <h3>BS Computer Engineering</h3>
+                <p class="org-name">University of Mindanao – Matina · 2024</p>
+                <ul class="honors"><li>Dean's Lister</li><li>DOST-SEI Scholar</li></ul>
+                <div class="thesis">
+                    <span class="label">Thesis</span>
+                    <p>Flood Detection Through Drainage Monitoring</p>
+                </div>
+            </aside>
+        </div>
     </section>
 
     <!-- ==================== CONTACT ==================== -->
-    <section class="wrap section contact" id="contact" aria-labelledby="contactTitle">
-        <h2 id="contactTitle">Let's talk.</h2>
-        <p>Open to systems developer, web-building, and full-stack PHP / Laravel roles.</p>
-        <div class="cta">
-            <a class="btn btn-primary" href="mailto:jmlapeceros.tech@gmail.com">Email</a>
-            <a class="btn" href="https://github.com/jm-nesi" rel="noopener">GitHub</a>
-            <a class="btn" href="https://www.linkedin.com/in/[your-linkedin]" rel="noopener">LinkedIn</a>
+    <section class="section wrap" id="contact" aria-labelledby="contactTitle">
+        <div class="contact reveal">
+            <span class="kicker">Contact</span>
+            <h2 id="contactTitle">Let's build something useful.</h2>
+            <p>Open to systems developer, web development and full-stack PHP / Laravel roles.</p>
+            <div class="cta">
+                <a class="btn btn-gold" href="mailto:jmlapeceros.tech@gmail.com">jmlapeceros.tech@gmail.com</a>
+                <a class="btn btn-ghost" href="https://github.com/jm-nesi" target="_blank" rel="noopener">GitHub ↗</a>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/[your-linkedin]" target="_blank" rel="noopener">LinkedIn ↗</a>
+            </div>
         </div>
     </section>
 </main>
 
-<footer class="wrap footer">
-    <span>© <span id="year"></span> Jones Mikko Lapeceros</span>
-    <span>Demos are anonymized replicas with fictional data. No company data is included.</span>
+<footer class="footer">
+    <div class="wrap footer-inner">
+        <span>© <span id="year"></span> Jones Mikko Lapeceros</span>
+        <span>Demos are anonymized replicas with fictional data. No company data is included.</span>
+    </div>
 </footer>
 
 <script>
+(function () {
+    const root = document.documentElement;
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (remembers the choice)
     document.getElementById('themeToggle').addEventListener('click', () => {
-        const root = document.documentElement;
         const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
         root.dataset.theme = dark ? 'light' : 'dark';
         try { localStorage.setItem('pf-theme', root.dataset.theme); } catch (e) {}
     });
+
+    // Nav shadow on scroll + active section link
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if ('IntersectionObserver' in window) {
+        const spy = new IntersectionObserver((entries) => entries.forEach((e) => {
+            if (e.isIntersecting) links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+        }), { rootMargin: '-45% 0px -50% 0px' });
+        links.forEach((a) => { const s = document.querySelector(a.getAttribute('href')); if (s) spy.observe(s); });
+
+        // Reveal on scroll
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }), { rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('.reveal').forEach((el) => (reduce ? el.classList.add('is-in') : io.observe(el)));
+
+        // Count-up stats
+        const counter = new IntersectionObserver((entries) => entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            counter.unobserve(e.target);
+            const el = e.target, end = Number(el.dataset.count), pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+            if (reduce || end === 0) return;
+            const t0 = performance.now();
+            const step = (t) => { const p = Math.min(1, (t - t0) / 900); el.textContent = pre + Math.round(end * (1 - Math.pow(1 - p, 3))) + suf; if (p < 1) requestAnimationFrame(step); };
+            requestAnimationFrame(step);
+        }), { threshold: 0.6 });
+        document.querySelectorAll('[data-count]').forEach((el) => counter.observe(el));
+    } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
+    }
+})();
 </script>
 </body>
 </html>
