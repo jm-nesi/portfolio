@@ -1,0 +1,1407 @@
+/* ============================================================
+   ui.css — shared components for every page
+
+   One look for buttons, fields, cards, badges, tabs, tables,
+   popovers, slide-overs and toasts. Canonical classes are `hr-*`;
+   the existing per-page class names are aliased here so current
+   Blade/Livewire views pick up the shared style without edits.
+   Requires theme.css to be loaded first.
+   ============================================================ */
+
+[x-cloak] { display: none !important; }
+
+/* ============================================================
+   PAGE ROOTS
+   ============================================================ */
+:is(.dash-shell, .att-container, .eml-page, .emt-page, .epf-page, .emp-page, .inf-page, .inf-sum-page, .sep-page) {
+    font-family: var(--hr-font);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--hr-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Same app background on every page (scoped, so nothing leaks to
+   other screens when Livewire keeps stylesheets between navigations) */
+body:has(:is(.dash-shell, .att-container, .eml-page, .emt-page, .epf-page, .emp-page, .inf-page, .inf-sum-page, .sep-page)) {
+    background: var(--hr-bg);
+}
+body:has(:is(.att-container, .emt-page, .epf-page)) .py-6 { padding: 0 !important; }
+
+/* Pages opened on their own (layouts/report: no sidebar / top bar) */
+.hr-report-body { margin: 0; background: var(--hr-bg); }
+.hr-report-body *, .hr-report-body *::before, .hr-report-body *::after { box-sizing: border-box; }
+
+:is(.dash-shell, .att-container, .eml-page, .emt-page, .epf-page, .emp-page, .inf-page, .inf-sum-page, .sep-page, .add-emp-panel, .epf-modal)
+:is(a, button, [role="button"], summary):focus-visible {
+    outline: 2px solid var(--hr-accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes hr-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hr-pop  { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hr-rise { from { opacity: 0; transform: translateY(6px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes hr-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.9); } }
+
+/* ============================================================
+   BUTTONS
+   Variants only set 4 variables, so hover/disabled live in one place.
+   ============================================================ */
+.hr-btn,
+.att-btn-primary, .att-btn-export,
+.eml-btn, .btn-emp, .emt-btn, .epf-btn, .add-emp-btn {
+    --_bg: var(--hr-surface);
+    --_bg-h: var(--hr-surface-2);
+    --_bd: var(--hr-border);
+    --_bd-h: var(--hr-border-strong);
+    --_fg: var(--hr-text);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    height: var(--hr-control-h);
+    padding: 0 0.875rem;
+    border: 1px solid var(--_bd);
+    border-radius: var(--hr-r-md);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--hr-dur) ease, border-color var(--hr-dur) ease,
+                color var(--hr-dur) ease, box-shadow var(--hr-dur) ease;
+}
+
+.hr-btn:hover:not(:disabled):not(.is-disabled),
+.att-btn-primary:hover:not(:disabled):not(.is-disabled), .att-btn-export:hover:not(:disabled):not(.is-disabled),
+.eml-btn:hover:not(:disabled):not(.is-disabled), .btn-emp:hover:not(:disabled):not(.is-disabled),
+.emt-btn:hover:not(:disabled):not(.is-disabled), .epf-btn:hover:not(:disabled):not(.is-disabled),
+.add-emp-btn:hover:not(:disabled):not(.is-disabled) {
+    background: var(--_bg-h);
+    border-color: var(--_bd-h);
+}
+
+.hr-btn:disabled, .att-btn-primary:disabled, .att-btn-export:disabled,
+.eml-btn:disabled, .btn-emp:disabled, .emt-btn:disabled, .epf-btn:disabled,
+.add-emp-btn:disabled, .add-emp-btn.is-disabled, .hr-btn.is-disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Primary (ink in light, accent in dark) */
+.hr-btn-primary, .att-btn-primary, .eml-btn-success, .btn-emp-primary,
+.emt-btn--primary, .add-emp-btn.primary {
+    --_bg: var(--hr-primary-bg);   --_bg-h: var(--hr-primary-bg-hover);
+    --_bd: var(--hr-primary-bg);   --_bd-h: var(--hr-primary-bg-hover);
+    --_fg: var(--hr-primary-fg);
+}
+
+/* Ghost (quiet secondary) */
+.hr-btn-ghost, .eml-btn-ghost, .btn-emp-ghost, .add-emp-btn.ghost {
+    --_bg: var(--hr-surface-3);    --_bg-h: var(--hr-border);
+    --_bd: transparent;            --_bd-h: transparent;
+    --_fg: var(--hr-text-2);
+}
+
+/* Success (confirm / export) */
+.hr-btn-success, .att-btn-export, .add-emp-btn.success {
+    --_bg: var(--hr-success-solid); --_bg-h: var(--hr-success-solid-hover);
+    --_bd: var(--hr-success-solid); --_bd-h: var(--hr-success-solid-hover);
+    --_fg: #ffffff;
+}
+
+/* Danger */
+.hr-btn-danger, .emt-btn--danger, .epf-btn--ghost, .add-emp-btn.danger {
+    --_bg: var(--hr-danger-solid);  --_bg-h: var(--hr-danger-solid-hover);
+    --_bd: var(--hr-danger-solid);  --_bd-h: var(--hr-danger-solid-hover);
+    --_fg: #ffffff;
+}
+
+/* Small */
+.hr-btn-sm, .eml-btn-sm, .att-action-btn, .att-action-btn-mini {
+    height: var(--hr-control-h-sm);
+    padding: 0 0.625rem;
+    font-size: 0.75rem;
+}
+
+/* Small outline buttons used inside tables (not in the big group above) */
+.att-action-btn, .att-action-btn-mini {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-sm);
+    background: var(--hr-surface);
+    color: var(--hr-text-3);
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: all var(--hr-dur) ease;
+}
+.att-action-btn:hover, .att-action-btn-mini:hover {
+    background: var(--hr-surface-2);
+    border-color: var(--hr-border-strong);
+    color: var(--hr-text);
+}
+
+/* Action buttons in table rows show only an icon, with its name in title and
+   aria-label, and keep the button's colour. */
+.hr-btn.hr-btn-icon { width: var(--hr-control-h); padding: 0; flex-shrink: 0; }
+.hr-btn.hr-btn-icon.hr-btn-sm { width: var(--hr-control-h-sm); }
+.att-action-btn-mini.is-icon { width: var(--hr-control-h-sm); padding: 0; }
+
+/* Icon-only buttons */
+.hr-icon-btn, .add-emp-close, .epf-modal__close, .epf-topbar__back,
+.btn-emp-detail, .btn-emp-menu, .dash-kpi-view {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--hr-control-h-sm);
+    height: var(--hr-control-h-sm);
+    padding: 0;
+    border: 0;
+    border-radius: var(--hr-r-md);
+    background: transparent;
+    color: var(--hr-text-3);
+    text-decoration: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--hr-dur) ease, color var(--hr-dur) ease;
+}
+.hr-icon-btn:hover, .add-emp-close:hover, .epf-modal__close:hover, .epf-topbar__back:hover,
+.btn-emp-detail:hover, .btn-emp-menu:hover, .btn-emp-menu.is-open, .dash-kpi-view:hover {
+    background: var(--hr-surface-3);
+    color: var(--hr-text);
+}
+.hr-icon-btn:disabled { opacity: 0.4; cursor: not-allowed; background: transparent; }
+/* Destructive icon button (delete): red only on hover */
+.hr-icon-btn.hr-icon-btn-danger:hover { background: var(--hr-danger-bg); color: var(--hr-danger-fg); }
+
+/* ============================================================
+   FIELDS
+   ============================================================ */
+
+/* Micro-label (shared by every form label / key / table head caption) */
+.hr-label, .att-label, .add-emp-field label, .emt-field label,
+.eml-popover-label, .emp-popover-label, .epf-field__k, .epf-fact__k,
+.epf-table__head, .epf-timeline__label, .emp-detail-label, .dash-kpi-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--hr-text-3);
+}
+
+/* Text inputs / selects / textareas */
+.hr-input, .att-input, .att-select, .add-emp-input,
+.eml-popover-input, .emp-popover-input,
+.emp-toolbar :is(.form-control, .form-select),
+.emt-field :is(input[type="text"], input[type="date"], input[type="time"], select, textarea) {
+    width: 100%;
+    height: var(--hr-control-h);
+    padding: 0 0.75rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-md);
+    background: var(--hr-surface);
+    color: var(--hr-text);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    box-sizing: border-box;
+    transition: border-color var(--hr-dur) ease, box-shadow var(--hr-dur) ease, background var(--hr-dur) ease;
+}
+
+.hr-input::placeholder, .att-input::placeholder, .add-emp-input::placeholder,
+.emp-toolbar .form-control::placeholder { color: var(--hr-text-4); }
+
+.hr-input:focus, .att-input:focus, .att-select:focus, .add-emp-input:focus,
+.eml-popover-input:focus, .emp-popover-input:focus,
+.emp-toolbar :is(.form-control, .form-select):focus,
+.emt-field :is(input, select, textarea):focus {
+    outline: none;
+    border-color: var(--hr-accent);
+    box-shadow: 0 0 0 3px var(--hr-ring);
+}
+
+/* Compact (popover) inputs */
+.eml-popover-input, .emp-popover-input { height: 32px; }
+
+/* Multi-line */
+textarea.hr-input, textarea.add-emp-input, .emt-field textarea {
+    height: auto;
+    min-height: 72px;
+    padding: 0.5rem 0.75rem;
+    resize: vertical;
+}
+
+/* Select with chevron */
+.att-select, select.hr-input {
+    appearance: none;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%2394a3b8' viewBox='0 0 24 24' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+/* Disabled / read-only */
+.hr-input:disabled, .add-emp-input.readonly, .add-emp-input--readonly, .emt-field input:disabled {
+    background: var(--hr-surface-2);
+    color: var(--hr-text-3);
+    cursor: not-allowed;
+}
+
+/* Error / warning states */
+.hr-input.is-invalid, .add-emp-input--error {
+    border-color: var(--hr-danger-dot) !important;
+    background: color-mix(in srgb, var(--hr-danger-dot) 5%, var(--hr-surface)) !important;
+}
+.hr-input.is-invalid:focus, .add-emp-input--error:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hr-danger-dot) 22%, transparent) !important;
+}
+.add-emp-input--warn {
+    border-color: var(--hr-warning-dot) !important;
+    background: color-mix(in srgb, var(--hr-warning-dot) 6%, var(--hr-surface)) !important;
+}
+.add-emp-input--warn:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hr-warning-dot) 22%, transparent) !important;
+}
+
+/* Search box with a leading icon (list headers) */
+.hr-search, .emp-search, .inf-search { position: relative; flex: 1 1 16rem; min-width: 0; }
+:is(.hr-search, .emp-search, .inf-search) .hr-input { padding-left: 2.25rem; }
+.hr-search-icon, .emp-search-icon, .inf-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: var(--hr-text-4);
+    pointer-events: none;
+}
+
+/* Visually hidden (labels for icon-only controls) */
+.hr-sr, .inf-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* Messages */
+.hr-error, .add-emp-error, .emt-error { font-size: 0.6875rem; font-weight: 500; line-height: 1.4; color: var(--hr-danger-fg); }
+.hr-warn, .add-emp-warn { font-size: 0.6875rem; font-weight: 500; line-height: 1.4; color: var(--hr-warning-fg); }
+.hr-hint, .add-emp-hint { display: block; font-size: 0.6875rem; line-height: 1.4; color: var(--hr-text-3); margin-top: 0.25rem; }
+.add-emp-req { color: var(--hr-danger-fg); font-weight: 700; margin-left: 1px; }
+
+/* Checkbox */
+.hr-checkbox, .att-checkbox, .emt-check input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 4px;
+    accent-color: var(--hr-accent);
+    cursor: pointer;
+}
+
+/* ============================================================
+   SURFACES
+   ============================================================ */
+.hr-card, .att-panel, .dash-kpi, .dash-dept-card, .dash-chart-card,
+.emt-card, .epf-side__card, .epf-widget,
+.eml-toolbar, .emp-toolbar, .eml-table-scroll, .emp-table-wrapper, .att-table-wrapper {
+    background: var(--hr-surface);
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-lg);
+    box-shadow: var(--hr-sh-xs);
+}
+
+/* Inner tiles */
+.hr-tile, .epf-fact, .epf-leave__item, .add-emp-subpanel, .att-checkbox-grid {
+    background: var(--hr-surface-2);
+    border: 1px solid var(--hr-border-soft);
+    border-radius: var(--hr-r-md);
+}
+
+/* Card header rule */
+.emt-card__head, .epf-widget__head { border-bottom: 1px solid var(--hr-border-soft); }
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.hr-badge, .label, .emp-status, .emp-loc, .epf-tag, .emt-badge, .add-emp-credit {
+    --_fg: var(--hr-neutral-fg);
+    --_bg: var(--hr-neutral-bg);
+    --_bd: var(--hr-neutral-bd);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--_bd);
+    border-radius: var(--hr-r-pill);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.hr-badge-success, .label-success, .emp-status.regular, .emp-loc.os, .epf-tag--green, .add-emp-credit--ok {
+    --_fg: var(--hr-success-fg); --_bg: var(--hr-success-bg); --_bd: var(--hr-success-bd);
+}
+.hr-badge-warning, .label-warning, .emp-status.warning, .emp-loc.wfh, .epf-tag--amber {
+    --_fg: var(--hr-warning-fg); --_bg: var(--hr-warning-bg); --_bd: var(--hr-warning-bd);
+}
+.hr-badge-danger, .emt-badge--danger, .add-emp-credit--bad {
+    --_fg: var(--hr-danger-fg);  --_bg: var(--hr-danger-bg);  --_bd: var(--hr-danger-bd);
+}
+.hr-badge-info, .emp-loc.hybrid, .epf-tag--teal {
+    --_fg: var(--hr-info-fg);    --_bg: var(--hr-info-bg);    --_bd: var(--hr-info-bd);
+}
+.hr-badge-neutral, .add-emp-credit--muted {
+    --_fg: var(--hr-neutral-fg); --_bg: var(--hr-neutral-bg); --_bd: var(--hr-neutral-bd);
+}
+
+/* Status dot */
+.epf-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.epf-dot--success { background: var(--hr-success-dot); box-shadow: 0 0 0 2px color-mix(in srgb, var(--hr-success-dot) 20%, transparent); }
+.epf-dot--warning { background: var(--hr-warning-dot); box-shadow: 0 0 0 2px color-mix(in srgb, var(--hr-warning-dot) 20%, transparent); }
+
+/* ============================================================
+   SEGMENTED CONTROL, TABS, PILLS, CHIPS
+   ============================================================ */
+.hr-segmented, .att-tabs, .dash-range-group {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 10px;
+    background: var(--hr-surface-3);
+    max-width: 100%;
+    overflow-x: auto;
+}
+.hr-segmented-item, .att-tab, .dash-range-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3125rem 0.875rem;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--hr-text-3);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--hr-dur) ease;
+}
+.hr-segmented-item:hover, .att-tab:hover, .dash-range-btn:hover { color: var(--hr-text); }
+.hr-segmented-item.active, .att-tab.active, .dash-range-btn.active {
+    background: var(--hr-surface);
+    color: var(--hr-text);
+    font-weight: 600;
+    box-shadow: var(--hr-sh-sm);
+}
+
+/* Underline tabs */
+.hr-tabs, .emp-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--hr-border);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.hr-tab, .emp-tab {
+    position: relative;
+    padding: 0.625rem 1rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--hr-text-3);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--hr-dur) ease;
+}
+.hr-tab:hover, .emp-tab:hover { color: var(--hr-text); }
+.hr-tab.active, .emp-tab.active { color: var(--hr-text); border-bottom-color: var(--hr-text); font-weight: 600; }
+
+/* Filter pills */
+.hr-pill, .dash-pill, .emp-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3125rem 0.75rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-pill);
+    background: var(--hr-surface);
+    color: var(--hr-text-2);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--hr-dur) ease;
+}
+.hr-pill:hover, .dash-pill:hover, .emp-pill:hover { background: var(--hr-surface-2); border-color: var(--hr-border-strong); color: var(--hr-text); }
+.hr-pill.active, .dash-pill.active, .emp-pill.active {
+    background: var(--hr-primary-bg);
+    border-color: var(--hr-primary-bg);
+    color: var(--hr-primary-fg);
+}
+
+/* Removable filter chips */
+.hr-chips, .eml-chips, .emp-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.hr-chip, .eml-chip, .emp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-pill);
+    background: var(--hr-surface-2);
+    color: var(--hr-text-2);
+    font-size: 0.75rem;
+}
+.hr-chip strong, .eml-chip strong, .emp-chip strong { color: var(--hr-text); font-weight: 600; }
+.hr-chip button, .eml-chip button, .emp-chip button {
+    padding: 0 0.125rem;
+    border: 0;
+    background: transparent;
+    color: var(--hr-text-4);
+    font-size: 0.875rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.hr-chip button:hover, .eml-chip button:hover, .emp-chip button:hover { color: var(--hr-danger-fg); }
+
+/* ============================================================
+   TABLES
+   One spec for every list: header look, density, sticky header,
+   row hover, standard cells, empty state, footer and pager.
+   Page files only add column widths and page-only cells.
+   Density comes from the --hr-cell-* tokens (theme.css); grids with
+   many narrow columns use the compact set (.hr-table-compact).
+   Density rules use :where() so a page can still adjust one column.
+
+   Markup for a standard list:
+     <div class="hr-card hr-table-card">
+       <div class="hr-table-scroll"><table class="hr-table">…</table></div>
+       <div class="hr-table-foot">… {{ $rows->links('pagination.hr') }}</div>
+     </div>
+   ============================================================ */
+:where(.hr-table, .att-table, .eml-table, .emp-table) {
+    --_fs: var(--hr-cell-fs);
+    --_px: var(--hr-cell-px);
+    --_py: var(--hr-cell-py);
+}
+:where(.hr-table-compact, .att-sum-table, .eml-table, .dash-table) {
+    --_fs: var(--hr-cell-fs-compact);
+    --_px: var(--hr-cell-px-compact);
+    --_py: var(--hr-cell-py-compact);
+}
+.hr-table, .att-table, .eml-table, .emp-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--_fs);
+}
+:where(.hr-table:not(.eml-table), .att-table, .emp-table) { width: 100%; }
+/* The whole head sticks (tables with two header rows stay stacked).
+   The master list pins each header row itself. */
+:where(.hr-table:not(.eml-table), .att-table, .emp-table) thead { position: sticky; top: 0; z-index: 3; }
+:where(.hr-table, .att-table, .eml-table, .emp-table) thead th {
+    padding: var(--_py) var(--_px);
+    text-align: left;
+    vertical-align: middle;
+}
+:where(.hr-table, .att-table, .eml-table, .emp-table) :is(tbody, tfoot) :is(td, th) {
+    padding: var(--_py) var(--_px);
+    vertical-align: middle;
+}
+:where(.hr-table, .att-table, .emp-table) tbody tr:last-child td { border-bottom: 0; }
+
+.hr-table thead th, .att-table thead th, .eml-table thead th, .emp-table thead th {
+    background: var(--hr-surface-2);
+    color: var(--hr-text-3);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--hr-border);
+    white-space: nowrap;
+    user-select: none;
+}
+.hr-table tbody td, .att-table tbody td, .eml-table tbody td, .emp-table tbody td {
+    border-bottom: 1px solid var(--hr-border-soft);
+    color: var(--hr-text-2);
+}
+.hr-table tbody tr:hover, .att-table tbody tr:hover, .emp-table tbody tr:hover { background: var(--hr-surface-2); }
+
+/* Alignment helpers */
+:is(.hr-table, .att-table, .emp-table) :is(th, td).is-center { text-align: center; }
+:is(.hr-table, .att-table, .emp-table) :is(th, td).is-right  { text-align: right; }
+:is(.hr-table, .att-table, .emp-table) :is(th, td).is-nowrap { white-space: nowrap; }
+
+/* ============================================================
+   TABLE CELL ALIGNMENT (every list)
+   Checkboxes, row buttons and dots sit on the first text line of their
+   row and in the middle of their column, whether the table aligns its
+   cells to the top (Leave, Time Adjustments, Infractions, Setup, ...) or
+   the middle. 1lh is the cell's line height; browsers without it get the
+   plain fallback on the line before.
+   ============================================================ */
+/* Checkboxes: the browser's own margin is uneven (3px 3px 3px 4px) and sits on
+   the text baseline, so the header and row boxes did not line up. */
+:is(.hr-table, .att-table, .emp-table, .eml-table) :is(th, td) > input[type="checkbox"] {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin: 2px auto;
+    margin-block: max(0px, calc((1lh - 1rem) / 2));
+}
+/* Row buttons (30px) are taller than a text line (~20px): centre them on the
+   first line instead of hanging below it, without eating all of the padding. */
+:is(.hr-table, .att-table, .emp-table) td > :is(.hr-btn-sm, .hr-icon-btn, .att-action-btn-mini),
+:is(.hr-table, .att-table, .emp-table) td > :is(.req-actions, .hr-row-actions, .inf-actions, .att-action-row) {
+    vertical-align: middle;
+    margin-block: -4px;
+    margin-block: max(calc(2px - var(--_py, 0.625rem)), calc((1lh - var(--hr-control-h-sm)) / 2));
+}
+/* Status dots line up with the middle of the text beside them. */
+.epf-dot { vertical-align: middle; }
+
+/* Standard cells: row number, employee ID, name ("Last, First"), dates, muted text */
+.hr-cell-no, .hr-cell-id { color: var(--hr-text-3); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.hr-cell-id { font-weight: 500; }
+.hr-cell-name { color: var(--hr-text-2); }
+.hr-cell-name strong { color: var(--hr-text); font-weight: 600; }
+.hr-cell-date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Slide-over shell (laravelcm/livewire-slide-overs, stacked mode: the package
+   default). Its view (vendor/.../slide-over.blade.php) is marked up with Tailwind
+   utility classes and the app does not load Tailwind, so the classes it uses are
+   defined here, scoped to its <section data-stacked>. Widths follow
+   SlideOverComponent::$maxWidths. Above the app shell (z 60), below modals (9000). */
+body.overflow-y-hidden { overflow-y: hidden; }
+section[data-stacked] { position: relative; z-index: 100; }
+section[data-stacked] .fixed { position: fixed; }
+section[data-stacked] .inset-0 { inset: 0; }
+section[data-stacked] .inset-y-0 { top: 0; bottom: 0; }
+section[data-stacked] .right-0 { right: 0; }
+section[data-stacked] .left-0 { left: 0; }
+section[data-stacked] .grid { display: grid; }
+section[data-stacked] .h-full { height: 100%; }
+section[data-stacked] .min-h-0 { min-height: 0; }
+section[data-stacked] .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+section[data-stacked] .pr-2 { padding-right: 0.5rem; }
+section[data-stacked] .pl-2 { padding-left: 0.5rem; }
+section[data-stacked] .pr-10 { padding-right: 2.5rem; }
+section[data-stacked] .pl-10 { padding-left: 2.5rem; }
+section[data-stacked] .pointer-events-none { pointer-events: none; }
+section[data-stacked] .pointer-events-auto { pointer-events: auto; }
+/* Dim layer (first child); the full-screen wrapper after it lets clicks through to it */
+section[data-stacked] > .fixed.inset-0:first-child { background: var(--hr-overlay); }
+section[data-stacked] > .fixed.inset-0:not(:first-child) { pointer-events: none; }
+/* Panel column and widths */
+section[data-stacked] .max-w-full { max-width: 100%; }
+section[data-stacked] .w-\[calc\(100vw-3rem\)\] { width: calc(100vw - 3rem); }
+@media (min-width: 640px) {
+    section[data-stacked] .sm\:w-screen { width: 100vw; }
+}
+section[data-stacked] .max-w-sm  { max-width: 24rem; }
+section[data-stacked] .max-w-md  { max-width: 28rem; }
+section[data-stacked] .max-w-lg  { max-width: 32rem; }
+section[data-stacked] .max-w-xl  { max-width: 36rem; }
+section[data-stacked] .max-w-2xl { max-width: 42rem; }
+section[data-stacked] .max-w-3xl { max-width: 48rem; }
+section[data-stacked] .max-w-4xl { max-width: 56rem; }
+section[data-stacked] .max-w-5xl { max-width: 64rem; }
+section[data-stacked] .max-w-6xl { max-width: 72rem; }
+section[data-stacked] .max-w-7xl { max-width: 80rem; }
+/* The panel card: the component's root fills it */
+section[data-stacked] .pointer-events-auto > .h-full {
+    overflow: hidden;
+    border-radius: var(--hr-r-lg);
+    background: var(--hr-surface);
+    color: var(--hr-text);
+    box-shadow: var(--hr-sh-modal);
+}
+/* Slide and fade (Alpine x-transition classes) */
+section[data-stacked] .transition,
+section[data-stacked] .transition-\[max-width\] { transition-property: transform, opacity, max-width; }
+section[data-stacked] .transition-\[transform\2c opacity\] { transition-property: transform, opacity; }
+section[data-stacked] .duration-300 { transition-duration: 300ms; }
+section[data-stacked] .duration-500 { transition-duration: 500ms; }
+section[data-stacked] .ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+section[data-stacked] .translate-x-0 { transform: translateX(0); }
+section[data-stacked] .translate-x-full { transform: translateX(100%); }
+section[data-stacked] .-translate-x-full { transform: translateX(-100%); }
+section[data-stacked] .opacity-0 { opacity: 0; }
+section[data-stacked] .opacity-100 { opacity: 1; }
+
+/* Modal: backdrop, panel, head, scrolling body, foot (.req-modal-* = same, request lists) */
+.hr-modal-backdrop, .req-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: var(--hr-overlay);
+    touch-action: none;
+}
+.hr-modal, .req-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 68rem;
+    max-height: calc(100dvh - 4rem);
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-lg);
+    background: var(--hr-surface);
+    box-shadow: var(--hr-sh-modal);
+    overflow: hidden;
+}
+.hr-modal-head, .req-modal-head {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--hr-border-soft);
+}
+.hr-modal-foot, .req-modal-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--hr-border-soft);
+}
+.hr-modal-title, .req-modal-title { margin: 0; font-size: 1.0625rem; font-weight: 600; color: var(--hr-text); overflow-wrap: anywhere; }
+.hr-modal-sub, .req-modal-sub { margin-top: 0.1875rem; font-size: 0.8125rem; color: var(--hr-text-2); overflow-wrap: anywhere; }
+.hr-modal-scroll, .req-modal-scroll { flex: 1 1 auto; min-height: 0; padding: 1.25rem; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; background: var(--hr-surface-2); }
+@media (max-width: 720px) {
+    .hr-modal-backdrop, .req-modal-backdrop { padding: 0; }
+    .hr-modal, .req-modal { max-width: none; max-height: 100dvh; height: 100dvh; border: 0; border-radius: 0; }
+    .hr-modal-scroll, .req-modal-scroll { padding: 1rem; }
+    :is(.hr-modal-head, .hr-modal-foot, .req-modal-head, .req-modal-foot) { padding-inline: 1rem; }
+}
+
+/* Dates of one record as labelled lines (<x-date-lines>) */
+.hr-date-lines { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 0.125rem 0.5rem; margin: 0; font-variant-numeric: tabular-nums; }
+.hr-date-lines dt { font-size: 0.6875rem; font-weight: 500; color: var(--hr-text-3); }
+.hr-date-lines dd { margin: 0; color: var(--hr-text); }
+.hr-cell-muted { color: var(--hr-text-3); }
+.hr-cell-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+/* Sortable column header: label + arrow (↑ ↓, or ↕ when not sorted) */
+.hr-sort, .eml-sort, .inf-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+}
+:is(.hr-sort, .eml-sort, .inf-sort):hover, :is(.hr-sort, .eml-sort, .inf-sort).is-sorted { color: var(--hr-text); }
+.hr-sort-icon, .eml-sort-icon, .inf-sort-icon { flex-shrink: 0; font-size: 0.6875rem; color: var(--hr-text-4); }
+:is(.hr-sort, .eml-sort, .inf-sort).is-sorted :is(.hr-sort-icon, .eml-sort-icon, .inf-sort-icon) { color: var(--hr-accent); }
+
+/* Row actions: small icon buttons, right next to each other */
+.hr-row-actions { display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem; }
+
+/* Card that holds a table: the scroll box, then the footer */
+.hr-table-card { overflow: hidden; }
+.hr-table-scroll {
+    position: relative;
+    max-height: var(--hr-table-max-h);
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    transition: opacity var(--hr-dur) ease;
+}
+.hr-table-scroll.is-loading { opacity: 0.55; }
+
+/* Empty state (one row spanning every column) */
+.hr-empty, .emp-empty, .eml-empty, .att-table td.att-empty {
+    padding: 3.5rem 1rem;
+    text-align: center;
+    color: var(--hr-text-3);
+    font-size: 0.8125rem;
+}
+.hr-empty strong { display: block; margin-bottom: 0.25rem; color: var(--hr-text); font-size: 0.875rem; font-weight: 600; }
+
+/* Footer under a table: record count on the left, pager on the right */
+.hr-table-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding: 0.625rem 1rem;
+    border-top: 1px solid var(--hr-border-soft);
+    background: var(--hr-surface);
+    color: var(--hr-text-3);
+    font-size: 0.75rem;
+}
+.hr-table-foot strong { color: var(--hr-text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hr-table-foot select.hr-input { width: auto; height: var(--hr-control-h-sm); }
+.hr-table-foot-group { display: inline-flex; align-items: center; gap: 0.5rem; }
+.hr-table-foot-pager { flex: 1 1 auto; min-width: 0; }
+
+/* ============================================================
+   PAGER (resources/views/pagination/hr.blade.php)
+   Used as $paginator->links('pagination.hr') on every paged list.
+   ============================================================ */
+.hr-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    width: 100%;
+    color: var(--hr-text-3);
+    font-size: 0.75rem;
+}
+.hr-pager-info strong { color: var(--hr-text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hr-pager-pages { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; margin-left: auto; }
+.hr-pager-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--hr-control-h-sm);
+    height: var(--hr-control-h-sm);
+    padding: 0 0.5rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-md);
+    background: var(--hr-surface);
+    color: var(--hr-text-2);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: all var(--hr-dur) ease;
+}
+.hr-pager-btn:hover:not(:disabled) { background: var(--hr-surface-2); border-color: var(--hr-border-strong); color: var(--hr-text); }
+.hr-pager-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.hr-pager-btn.active { background: var(--hr-primary-bg); border-color: var(--hr-primary-bg); color: var(--hr-primary-fg); font-weight: 600; cursor: default; }
+.hr-pager-gap { padding: 0 0.25rem; color: var(--hr-text-4); }
+@media (max-width: 639px) {
+    .hr-pager-pages { margin-left: 0; }
+    .hr-pager-num:not(.active) { display: none; }
+    .hr-pager-gap { display: none; }
+}
+
+/* ============================================================
+   POPOVERS & MENUS
+   ============================================================ */
+.hr-popover, .eml-popover, .emp-th-popover, .emp-action-dropdown {
+    background: var(--hr-surface);
+    border: 1px solid var(--hr-border);
+    border-radius: 10px;
+    box-shadow: var(--hr-sh-pop);
+    color: var(--hr-text-2);
+    text-align: left;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    white-space: normal;
+    animation: hr-pop 0.14s ease-out;
+}
+
+.hr-menu-item, .emp-action-item, .emp-popover-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4375rem 0.625rem;
+    border: 0;
+    border-radius: var(--hr-r-sm);
+    background: transparent;
+    color: var(--hr-text-2);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.1s ease, color 0.1s ease;
+}
+.hr-menu-item:hover, .emp-action-item:hover, .emp-popover-option:hover { background: var(--hr-surface-3); color: var(--hr-text); }
+.hr-menu-item:disabled, .emp-action-item:disabled { opacity: 0.45; cursor: not-allowed; }
+.hr-menu-item:disabled:hover, .emp-action-item:disabled:hover { background: transparent; color: var(--hr-text-2); }
+.hr-menu-item.danger, .emp-action-item.danger { color: var(--hr-danger-fg); }
+.hr-menu-item.danger:hover, .emp-action-item.danger:hover { background: var(--hr-danger-bg); color: var(--hr-danger-fg); }
+.emp-popover-option.is-active { background: var(--hr-primary-bg); color: var(--hr-primary-fg); font-weight: 600; }
+.emp-action-separator { height: 1px; background: var(--hr-border-soft); margin: 0.25rem 0.125rem; }
+
+/* Column-header filter trigger */
+.eml-th-filter-btn, .emp-th-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.125rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--hr-text-4);
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition: all 0.12s ease;
+}
+.eml-th-filter-btn:hover, .emp-th-filter-btn:hover { background: var(--hr-surface-3); color: var(--hr-text); }
+.eml-th-filter-btn.is-active, .emp-th-filter-btn.is-active { background: var(--hr-accent); color: #ffffff; }
+
+/* Expandable record detail (added by / last updated by) under a table
+   row, opened by .btn-emp-detail. Manage Employees, Manage Infraction. */
+.btn-emp-detail svg { transition: transform var(--hr-dur) ease; }
+.btn-emp-detail.is-open { background: var(--hr-surface-3); color: var(--hr-text); }
+.btn-emp-detail.is-open svg { transform: rotate(180deg); }
+.emp-detail-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem 3rem;
+    padding: 0.875rem 1.25rem;
+    animation: hr-fade 0.15s ease-out;
+}
+.emp-detail-section { display: flex; flex-direction: column; align-items: flex-end; gap: 0.1875rem; text-align: right; }
+.emp-detail-value { color: var(--hr-text); font-weight: 500; }
+.emp-detail-time { display: block; margin-top: 0.0625rem; color: var(--hr-text-3); font-size: 0.6875rem; font-weight: 400; }
+
+/* Count badge on tabs and pills (Employees, Manage Infraction). Turns accent when a search
+   matches employees in that company/department. */
+.hr-count, .emp-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.125rem;
+    padding: 0 0.375rem;
+    border-radius: var(--hr-r-pill);
+    background: var(--hr-surface-3);
+    color: var(--hr-text-3);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+.hr-count.is-match, .emp-count.is-match { background: var(--hr-accent-soft); color: var(--hr-accent); }
+:is(.hr-pill, .emp-pill).active :is(.hr-count, .emp-count) { background: color-mix(in srgb, var(--hr-primary-fg) 18%, transparent); color: var(--hr-primary-fg); }
+
+/* Red number on a tab or pill: how many in it need an action (components/tab-count).
+   On the dark active pill it sits on a light chip so the red stays readable. */
+.hr-tab-action {
+    color: var(--hr-danger-fg);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+:is(.hr-pill, .emp-pill).active .hr-tab-action {
+    padding: 0 0.375rem;
+    border-radius: var(--hr-r-pill);
+    background: var(--hr-surface);
+}
+
+/* Red notification dot: the tab / pill holds search matches (components/notif-dot).
+   Trackers, Resigned, Employees, Manage Infraction. */
+.hr-notif-dot, .inf-dot {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--hr-danger-dot);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--hr-danger-dot) 22%, transparent);
+}
+:is(.hr-pill, .emp-pill).active :is(.hr-notif-dot, .inf-dot) { box-shadow: 0 0 0 2px var(--hr-primary-fg); }
+
+/* ============================================================
+   SEARCH / FILTER RESULTS (every list with tabs or filters)
+   - Tabs and pills show no row count, only a red number when something
+     in them needs an action (components/tab-count). While anything narrows
+     the list, tabs with matches get the red dot and the rest are dimmed.
+   - components/result-note: "12 matches in all companies; a red dot on
+     a tab shows where." + clear button, at the foot of the header bar.
+   ============================================================ */
+:is(.hr-tab, .hr-pill, .emp-tab, .emp-pill).is-dim { opacity: 0.55; }
+:is(.hr-tab, .hr-pill, .emp-tab, .emp-pill).is-dim:hover { opacity: 0.85; }
+
+.hr-result-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid var(--hr-border-soft);
+    color: var(--hr-text-3);
+    font-size: 0.75rem;
+}
+.hr-result-note strong { color: var(--hr-text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hr-result-note .hr-btn { margin-left: auto; }
+
+/* ============================================================
+   Column filter popover (Excel-style; placed by Alpine next to the
+   header button). Master List, Manage Infraction.
+   ============================================================ */
+.eml-popover {
+    position: fixed;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    width: 280px;
+    max-width: calc(100vw - 16px);
+    padding: 0.75rem;
+}
+.eml-pop-head { display: flex; align-items: center; justify-content: space-between; }
+.eml-pop-close { border: 0; background: transparent; color: var(--hr-text-4); font-size: 1.125rem; line-height: 1; cursor: pointer; }
+.eml-pop-close:hover { color: var(--hr-text); }
+.eml-popover .hr-hint { margin: 0.375rem 0 0; }
+
+.eml-pop-tools { display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0 0.25rem; font-size: 0.75rem; color: var(--hr-text-3); }
+.eml-pop-tools button { padding: 0; border: 0; background: transparent; color: var(--hr-accent); font: inherit; font-weight: 500; cursor: pointer; }
+.eml-pop-tools button:hover { text-decoration: underline; }
+.eml-pop-tools span { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.eml-options {
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid var(--hr-border-soft);
+    border-radius: var(--hr-r-md);
+    padding: 0.25rem;
+    scrollbar-width: thin;
+}
+.eml-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3125rem 0.375rem;
+    border-radius: var(--hr-r-sm);
+    font-size: 0.75rem;
+    color: var(--hr-text-2);
+    cursor: pointer;
+}
+.eml-option:hover { background: var(--hr-surface-2); }
+.eml-option-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eml-option-count { color: var(--hr-text-3); font-variant-numeric: tabular-nums; }
+.eml-options-note { margin: 0; padding: 0.5rem; font-size: 0.75rem; color: var(--hr-text-3); }
+
+.eml-pop-date { display: flex; flex-direction: column; gap: 0.5rem; }
+.eml-pop-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.eml-pop-range label { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+/* Date inputs must fit half a 280px popover */
+.eml-pop-range input[type="date"] { width: 100%; min-width: 0; padding: 0 0.375rem 0 0.5rem; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.eml-pop-range input[type="date"]::-webkit-calendar-picker-indicator { margin: 0; padding: 0.125rem; cursor: pointer; }
+.eml-pop-actions { display: flex; justify-content: flex-end; gap: 0.375rem; }
+
+/* ============================================================
+   SLIDE-OVER FORM  (Add Employee, Edit Time, Apply Leave, Apply EEO)
+   Previously duplicated in two files.
+   ============================================================ */
+.add-emp-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--hr-surface);
+    position: relative;
+}
+
+.add-emp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--hr-border);
+    background: var(--hr-surface);
+    flex-shrink: 0;
+}
+.add-emp-header h2 { margin: 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; color: var(--hr-text); }
+.add-emp-header-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.add-emp-subtitle { margin: 0.25rem 0 0; font-size: 0.75rem; color: var(--hr-text-3); }
+.add-emp-chip-inline { display: inline-block; font-size: 0.75rem; font-weight: 500; color: var(--hr-text-3); }
+.add-emp-dot-sep { color: var(--hr-border-strong); font-size: 0.875rem; margin: 0 0.35rem; vertical-align: middle; }
+
+/* Step indicator */
+.add-emp-steps {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--hr-surface-2);
+    border-bottom: 1px solid var(--hr-border);
+    flex-shrink: 0;
+    overflow-x: auto;
+}
+.add-emp-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border: 0;
+    border-radius: var(--hr-r-pill);
+    background: transparent;
+    color: var(--hr-text-3);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--hr-dur) ease;
+}
+.add-emp-step:hover { color: var(--hr-text); }
+.add-emp-step.is-current { background: var(--hr-primary-bg); color: var(--hr-primary-fg); font-weight: 600; }
+.add-emp-step.is-done { color: var(--hr-success-fg); }
+.add-emp-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--hr-surface-3);
+    color: var(--hr-text-2);
+    font-size: 0.625rem;
+    font-weight: 700;
+}
+.add-emp-step.is-current .add-emp-step-num { background: var(--hr-surface); color: var(--hr-text); }
+.add-emp-step.is-done .add-emp-step-num { background: var(--hr-success-bg); color: var(--hr-success-fg); }
+.add-emp-step-connector { flex: 0 0 16px; height: 2px; border-radius: var(--hr-r-pill); background: var(--hr-border); }
+.add-emp-step-connector.is-done { background: var(--hr-success-dot); }
+
+/* Body */
+.add-emp-form { flex: 1; overflow-y: auto; padding: 1.25rem 1.5rem; }
+.add-emp-section { margin-bottom: 1.5rem; }
+.add-emp-section:last-child { margin-bottom: 0; }
+.add-emp-subhead {
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--hr-border-soft);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--hr-text-3);
+}
+.add-emp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.875rem 1rem; margin-bottom: 0.875rem; }
+.add-emp-section .add-emp-grid { margin-top: 0.5rem; }
+.add-emp-field { display: flex; flex-direction: column; gap: 0.3125rem; }
+.add-emp-field-full { grid-column: 1 / -1; margin-bottom: 0.875rem; }
+.add-emp-date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem; }
+
+.add-emp-error, .add-emp-warn {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+    animation: hr-pop 0.15s ease-out;
+}
+.add-emp-error svg, .add-emp-warn svg { flex-shrink: 0; margin-top: 1px; }
+
+/* Radios */
+.add-emp-radios { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.375rem 0; }
+.add-emp-radios label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--hr-text-2);
+    cursor: pointer;
+}
+
+/* Radio cards (EEO type) */
+.add-emp-radios--cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; padding: 0; }
+.add-emp-radio-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.85rem 0.9rem;
+    background: var(--hr-surface);
+    border: 1px solid var(--hr-border);
+    border-radius: 10px;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    cursor: pointer;
+    transition: border-color var(--hr-dur) ease, background var(--hr-dur) ease, box-shadow var(--hr-dur) ease;
+}
+.add-emp-radio-card:hover { border-color: var(--hr-border-strong); background: var(--hr-surface-2); }
+.add-emp-radio-card.is-selected { border-color: var(--hr-text); background: var(--hr-surface-2); box-shadow: 0 0 0 3px var(--hr-ring); }
+.add-emp-radio-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.add-emp-radio-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--hr-r-md);
+    background: var(--hr-surface-3);
+    color: var(--hr-text-2);
+    flex-shrink: 0;
+    transition: background var(--hr-dur) ease, color var(--hr-dur) ease;
+}
+.add-emp-radio-card.is-selected .add-emp-radio-card-icon { background: var(--hr-primary-bg); color: var(--hr-primary-fg); }
+.add-emp-radio-card-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; text-align: left; }
+.add-emp-radio-card-text strong { font-size: 0.8125rem; font-weight: 600; line-height: 1.25; color: var(--hr-text); }
+.add-emp-radio-card-text em { font-style: normal; font-size: 0.6875rem; line-height: 1.35; color: var(--hr-text-3); }
+.add-emp-radios--error .add-emp-radio-card { border-color: var(--hr-danger-bd); }
+.add-emp-radios--error .add-emp-radio-card.is-selected {
+    border-color: var(--hr-danger-dot);
+    background: var(--hr-danger-bg);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hr-danger-dot) 15%, transparent);
+}
+.add-emp-radios--error .add-emp-radio-card.is-selected .add-emp-radio-card-icon { background: var(--hr-danger-solid); color: #ffffff; }
+
+/* Leave credit chip + sub-panel + blocked notice */
+.add-emp-credit { margin-top: 0.5rem; }
+.add-emp-subpanel { margin-top: 1rem; padding: 0.9rem 1rem 1rem; animation: hr-pop 0.2s ease-out; }
+.add-emp-subpanel-title { margin-bottom: 0.75rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--hr-text-2); }
+.add-emp-blocked {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--hr-warning-bd);
+    border-radius: var(--hr-r-md);
+    background: var(--hr-warning-bg);
+    color: var(--hr-warning-fg);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* Numbered section heading (Apply Leave / Apply EEO) */
+.add-emp-subhead-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-right: 0.4rem;
+    border-radius: 50%;
+    background: var(--hr-surface-3);
+    color: var(--hr-text-2);
+    font-size: 0.625rem;
+    letter-spacing: 0;
+    vertical-align: 1px;
+}
+
+/* Leave balance tiles: click one to pick that leave type */
+.add-emp-credits { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; margin-bottom: 1rem; }
+.add-emp-credit-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+    min-width: 0;
+    padding: 0.5rem 0.625rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-md);
+    background: var(--hr-surface);
+    color: var(--hr-text);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--hr-dur) ease, background var(--hr-dur) ease;
+}
+.add-emp-credit-tile:hover { border-color: var(--hr-border-strong); background: var(--hr-surface-2); }
+.add-emp-credit-tile.is-selected { border-color: var(--hr-accent); box-shadow: 0 0 0 3px var(--hr-ring); }
+.add-emp-credit-tile-k { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--hr-text-3); }
+.add-emp-credit-tile-v { font-size: 1rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.add-emp-credit-tile.is-empty .add-emp-credit-tile-v { color: var(--hr-text-3); }
+@media (max-width: 480px) { .add-emp-credits { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Computed result (e.g. leave end date) */
+.add-emp-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--hr-border-soft);
+    border-radius: var(--hr-r-md);
+    background: var(--hr-surface-2);
+    font-size: 0.8125rem;
+    color: var(--hr-text-2);
+}
+.add-emp-summary svg { flex-shrink: 0; color: var(--hr-text-3); }
+.add-emp-summary strong { font-weight: 600; color: var(--hr-text); font-variant-numeric: tabular-nums; }
+.add-emp-footer-summary { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.75rem; color: var(--hr-text-3); }
+.add-emp-footer-summary strong { font-weight: 600; color: var(--hr-text); }
+
+/* Footer */
+.add-emp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--hr-border);
+    background: var(--hr-surface);
+    flex-shrink: 0;
+}
+.add-emp-footer-left, .add-emp-footer-right { display: flex; gap: 0.375rem; }
+
+/* Discard-changes confirmation */
+.add-emp-confirm-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--hr-overlay);
+    backdrop-filter: blur(2px);
+    animation: hr-fade 0.15s ease-out;
+}
+.add-emp-confirm {
+    width: 100%;
+    max-width: 360px;
+    padding: 1.5rem;
+    border: 1px solid var(--hr-border);
+    border-radius: var(--hr-r-lg);
+    background: var(--hr-surface);
+    box-shadow: var(--hr-sh-modal);
+    text-align: center;
+    animation: hr-rise 0.18s ease-out;
+}
+.add-emp-confirm-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.875rem;
+    border-radius: 50%;
+    background: var(--hr-warning-bg);
+    color: var(--hr-warning-fg);
+}
+.add-emp-confirm h3 { margin: 0 0 0.375rem; font-size: 1rem; font-weight: 600; color: var(--hr-text); }
+.add-emp-confirm p { margin: 0 0 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--hr-text-3); }
+.add-emp-confirm-actions { display: flex; gap: 0.5rem; justify-content: center; }
+
+@media (max-width: 640px) { .add-emp-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .add-emp-date-row, .add-emp-radios--cards { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   CHECKBOX PICKER (Announcement audience, Leave Protocol scopes)
+   A searchable list of checkboxes with a "N picked · Clear" head.
+   .hr-picker-n: a headcount at the right of an item.
+   ============================================================ */
+.hr-pickers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.875rem; margin-top: 0.75rem; }
+.hr-picker { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.hr-picker-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.hr-picker-head .hr-label { margin: 0; }
+.hr-picker-count { font-size: 0.6875rem; color: var(--hr-text-3); font-variant-numeric: tabular-nums; }
+.hr-picker-search { flex: 0 0 auto; }
+.hr-picker-search .hr-input { height: var(--hr-control-h-sm); font-size: 0.75rem; }
+.hr-picker-list { max-height: 15rem; overflow-y: auto; padding: 0.25rem; }
+.hr-picker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: var(--hr-r-sm);
+    font-size: 0.8125rem;
+    color: var(--hr-text-2);
+    cursor: pointer;
+}
+.hr-picker-item:hover { background: var(--hr-surface-3); color: var(--hr-text); }
+.hr-picker-item:has(input:checked) { color: var(--hr-text); font-weight: 500; }
+.hr-picker-item > span:not(.hr-picker-n) { flex: 1; min-width: 0; }
+.hr-picker-n { flex-shrink: 0; font-size: 0.6875rem; color: var(--hr-text-3); font-weight: 400; font-variant-numeric: tabular-nums; }
+.hr-picker-empty { padding: 0.5rem; font-size: 0.75rem; color: var(--hr-text-3); }
+@media (max-width: 640px) { .hr-pickers { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   COPY TO CLIPBOARD (components/copy-text.blade.php)
+   Text that copies itself on click; icon on hover, "Copied" after.
+   ============================================================ */
+.hr-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    max-width: calc(100% + 0.75rem);
+    margin: -0.125rem -0.375rem;
+    padding: 0.125rem 0.375rem;
+    border: 0;
+    border-radius: var(--hr-r-sm);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: copy;
+    transition: background var(--hr-dur) ease, color var(--hr-dur) ease;
+}
+.hr-copy:hover { background: var(--hr-surface-3); color: var(--hr-text); }
+.hr-copy__text { display: inline-flex; align-items: center; gap: 0.3125rem; min-width: 0; overflow-wrap: anywhere; }
+.hr-copy__icon { flex-shrink: 0; color: var(--hr-text-3); opacity: 0; transition: opacity var(--hr-dur) ease; }
+.hr-copy:hover .hr-copy__icon, .hr-copy:focus-visible .hr-copy__icon { opacity: 1; }
+.hr-copy.is-copied { background: var(--hr-success-bg); }
+.hr-copy__done { flex-shrink: 0; font-size: 0.6875rem; font-weight: 600; color: var(--hr-success-fg); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.hr-toast, .emt-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    padding: 0.625rem 1rem;
+    border-radius: var(--hr-r-md);
+    background: var(--hr-text);
+    color: var(--hr-bg);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    box-shadow: var(--hr-sh-pop);
+    animation: hr-rise 0.18s ease-out;
+}

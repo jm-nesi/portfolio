@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal Demo</title>
+    <meta name="description" content="Interactive demo of an HR back-office system (HRIS). All data is fictional.">
+    <script>
+        try { if (localStorage.getItem('hr-demo-theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+
+<div class="demo-ribbon" role="note">
+    <span><strong>Demo mode</strong> · fictional data · changes reset on reload</span>
+    <a href="../../index.html#projects">← Back to portfolio</a>
+</div>
+
+<!-- ==================== LOGIN ==================== -->
+<section id="loginView" class="demo-login" hidden>
+    <form class="demo-login-card hr-card" id="loginForm">
+        <div class="demo-login-brand">
+            <span class="app-brand-mark" aria-hidden="true">HR</span>
+            <div>
+                <div class="demo-login-title">HR Portal</div>
+                <div class="hr-hint">Acme Staffing Co. · back office</div>
+            </div>
+        </div>
+        <label class="hr-label" for="lu">Username</label>
+        <input id="lu" class="hr-input" value="hr.demo" autocomplete="off">
+        <label class="hr-label" for="lp">Password</label>
+        <input id="lp" class="hr-input" type="password" value="demo1234">
+        <button class="hr-btn hr-btn-primary demo-login-btn" type="submit">Sign in</button>
+        <p class="hr-hint">Demo credentials are filled in. Any password works.</p>
+    </form>
+</section>
+
+<!-- ==================== APP ==================== -->
+<div id="appView" hidden>
+    <button id="sidebarToggleBtn" type="button" class="app-collapse-btn" title="Collapse sidebar" aria-label="Collapse sidebar" aria-controls="appSidebar" aria-expanded="true">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+    </button>
+
+    <aside id="appSidebar" class="app-sidebar" aria-label="Main menu">
+        <div class="app-brand">
+            <span class="app-brand-mark" aria-hidden="true">HR</span>
+            <span>
+                <span class="app-brand-name">HR Portal</span>
+                <span class="app-brand-sub">Acme Staffing</span>
+            </span>
+            <button type="button" id="closeMobile" class="app-icon-btn app-brand-close" aria-label="Close menu">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <nav class="app-nav" id="appNav"></nav>
+        <div class="app-sidebar-foot">
+            <button type="button" class="app-nav-link is-signout" data-logout>
+                <svg class="app-nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
+                <span class="app-nav-label">Log out</span>
+            </button>
+        </div>
+    </aside>
+
+    <div id="mobileBackdrop" class="app-backdrop"></div>
+
+    <div id="appMain" class="app-main">
+        <header class="app-topbar" id="appTopbar">
+            <button type="button" id="openMobile" class="app-icon-btn app-menu-btn" aria-label="Open menu" aria-controls="appSidebar">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+            </button>
+            <h1 class="app-topbar-title" id="pageTitle">Dashboard</h1>
+            <div class="app-topbar-actions">
+                <button type="button" id="themeBtn" class="app-icon-btn app-theme-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg class="is-sun" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>
+                    <svg class="is-moon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/></svg>
+                </button>
+                <div class="app-user">
+                    <button type="button" class="app-user-btn" id="userBtn" aria-haspopup="menu" aria-expanded="false">
+                        <span class="app-avatar" aria-hidden="true">HD</span>
+                        <span class="app-user-label">hr.demo</span>
+                    </button>
+                    <div class="app-user-menu" role="menu" id="userMenu" hidden>
+                        <div class="app-user-card">
+                            <span class="app-avatar is-lg" aria-hidden="true">HD</span>
+                            <span><span class="app-user-name">hr.demo</span><span class="app-user-role">HR account</span></span>
+                        </div>
+                        <div class="app-menu-sep"></div>
+                        <a href="../portal/index.html" class="app-menu-item" role="menuitem">Open Employee Portal demo</a>
+                        <div class="app-menu-sep"></div>
+                        <button type="button" class="app-menu-item danger" role="menuitem" data-logout>Log out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-content">
+            <div class="app-container" id="page"></div>
+        </main>
+
+        <footer class="app-footer">
+            <span>&copy; <span id="year"></span> Acme Staffing Co. (fictional) · Portfolio demo</span>
+            <span>v1.0.0-demo</span>
+        </footer>
+    </div>
+</div>
+
+<div id="modalRoot"></div>
+
+<script src="../shared/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

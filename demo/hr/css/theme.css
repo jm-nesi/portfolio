@@ -1,0 +1,195 @@
+/* ============================================================
+   theme.css — design tokens (single source of truth)
+
+   Load order in the layout <head>:
+       theme.css  →  ui.css  →  page stylesheet
+   Dark mode: put class="dark" on <html> (already how the app works).
+   Never hard-code colors in page CSS; use these tokens.
+   ============================================================ */
+
+:root {
+    color-scheme: light;
+
+    /* ---------- Surfaces ---------- */
+    --hr-bg:        #f1f5f9;   /* app background (= layout slate-100) */
+    --hr-surface:   #ffffff;   /* cards, panels, inputs      */
+    --hr-surface-2: #f8fafc;   /* table heads, hover, tiles  */
+    --hr-surface-3: #f1f5f9;   /* tracks, chips, pressed     */
+    --hr-row-gy:       #e2e5ea; /* graveyard-shift table rows (darker than hover) */
+    --hr-row-gy-hover: #d4d8df;
+    --hr-row-today:       #eef4ff; /* rows taking effect today (trackers) */
+    --hr-row-today-hover: #e1ebfd;
+
+    /* ---------- Lines ---------- */
+    --hr-border:        #e2e8f0;
+    --hr-border-soft:   #eef2f6;   /* row dividers */
+    --hr-border-strong: #cbd5e1;
+
+    /* ---------- Text ---------- */
+    --hr-text:   #0f172a;   /* headings, values              */
+    --hr-text-2: #475569;   /* body                          */
+    --hr-text-3: #64748b;   /* labels, captions (AA on white)*/
+    --hr-text-4: #94a3b8;   /* placeholders, icons only      */
+
+    /* ---------- Accent + primary action ---------- */
+    --hr-accent:       #2563eb;
+    --hr-accent-hover: #1d4ed8;
+    --hr-accent-soft:  #eff6ff;
+    --hr-ring:         rgba(37, 99, 235, 0.18);
+
+    --hr-primary-bg:       #0f172a;
+    --hr-primary-bg-hover: #1e293b;
+    --hr-primary-fg:       #ffffff;
+
+    /* ---------- Status ---------- */
+    --hr-success-fg: #15803d;  --hr-success-bg: #f0fdf4;  --hr-success-bd: #bbf7d0;
+    --hr-success-dot: #10b981; --hr-success-solid: #15803d; --hr-success-solid-hover: #166534;
+
+    --hr-warning-fg: #b45309;  --hr-warning-bg: #fffbeb;  --hr-warning-bd: #fde68a;
+    --hr-warning-dot: #f59e0b;
+
+    --hr-danger-fg: #b91c1c;   --hr-danger-bg: #fef2f2;   --hr-danger-bd: #fecaca;
+    --hr-danger-dot: #ef4444;  --hr-danger-solid: #dc2626; --hr-danger-solid-hover: #b91c1c;
+
+    --hr-info-fg: #1d4ed8;     --hr-info-bg: #eff6ff;     --hr-info-bd: #bfdbfe;
+    --hr-violet-fg: #6d28d9;   --hr-violet-bg: #f5f3ff;   --hr-violet-bd: #ddd6fe;   /* category accent (e.g. shift moves) */
+    --hr-info-dot: #0ea5e9;
+
+    --hr-neutral-fg: #475569;  --hr-neutral-bg: #f1f5f9;  --hr-neutral-bd: #e2e8f0;
+    --hr-neutral-dot: #64748b;
+    --hr-on-pastel:   #1f2937;   /* text on fixed pastel fills (Attendance Summary department colours) */
+
+    /* ---------- Column-group hues (Employee Master List) ---------- */
+    --hr-g-profile:    #1d4ed8;
+    --hr-g-employment: #047857;
+    --hr-g-benefits:   #b45309;
+    --hr-g-checklist:  #be185d;
+    --hr-g-contract:   #4338ca;
+    --hr-g-referral:   #a16207;
+
+    /* ---------- Chart palette (use in SVG / JS charts) ---------- */
+    --hr-chart-1: #2563eb;
+    --hr-chart-2: #10b981;
+    --hr-chart-3: #f59e0b;
+    --hr-chart-4: #ef4444;
+    --hr-chart-5: #8b5cf6;
+    --hr-chart-6: #64748b;
+
+    /* ---------- Shape ---------- */
+    --hr-r-sm:   6px;
+    --hr-r-md:   8px;
+    --hr-r-lg:   12px;
+    --hr-r-pill: 999px;
+
+    /* ---------- Elevation ---------- */
+    --hr-sh-xs:    0 1px 2px rgba(15, 23, 42, 0.04);
+    --hr-sh-sm:    0 1px 3px rgba(15, 23, 42, 0.07), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --hr-sh-pop:   0 12px 30px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.05);
+    --hr-sh-modal: 0 24px 60px rgba(15, 23, 42, 0.28);
+    --hr-edge:     rgba(15, 23, 42, 0.10);   /* sticky-column edge shadow */
+    --hr-overlay:  rgba(15, 23, 42, 0.45);
+
+    /* ---------- Sizing ---------- */
+    --hr-control-h:    36px;
+    --hr-control-h-sm: 30px;
+    --hr-page-max:     1700px;
+    --hr-topbar-h:     4rem;     /* app top bar (layouts/app, h-16); offset for sticky panels */
+
+    /* ---------- Tables (one density for every list; grids use the compact set) ---------- */
+    --hr-cell-fs:         0.8125rem;
+    --hr-cell-px:         0.75rem;
+    --hr-cell-py:         0.625rem;
+    --hr-cell-fs-compact: 0.75rem;
+    --hr-cell-px-compact: 0.5rem;
+    --hr-cell-py-compact: 0.375rem;
+    --hr-table-max-h:     calc(100vh - 14rem); /* scroll box height; the header row sticks inside it */
+
+    /* ---------- Type ---------- */
+    --hr-font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --hr-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+    /* ---------- Motion ---------- */
+    --hr-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --hr-dur:  0.15s;
+}
+
+.dark {
+    color-scheme: dark;
+
+    --hr-bg:        #0b0f17;
+    --hr-surface:   #111722;
+    --hr-surface-2: #151b29;
+    --hr-surface-3: #1b2233;
+    --hr-row-gy:       #232a3b;
+    --hr-row-gy-hover: #2c3448;
+    --hr-row-today:       rgba(59, 130, 246, 0.10);
+    --hr-row-today-hover: rgba(59, 130, 246, 0.16);
+
+    --hr-border:        #252c40;
+    --hr-border-soft:   #1b2233;
+    --hr-border-strong: #343d57;
+
+    --hr-text:   #f1f5f9;
+    --hr-text-2: #cbd5e1;
+    --hr-text-3: #94a3b8;
+    --hr-text-4: #64748b;
+
+    --hr-accent:       #3b82f6;
+    --hr-accent-hover: #60a5fa;
+    --hr-accent-soft:  rgba(59, 130, 246, 0.12);
+    --hr-ring:         rgba(59, 130, 246, 0.30);
+
+    --hr-primary-bg:       #3b82f6;
+    --hr-primary-bg-hover: #2563eb;
+    --hr-primary-fg:       #ffffff;
+
+    --hr-success-fg: #4ade80;  --hr-success-bg: rgba(34, 197, 94, 0.12);  --hr-success-bd: rgba(34, 197, 94, 0.28);
+    --hr-success-dot: #34d399;
+    --hr-warning-fg: #fbbf24;  --hr-warning-bg: rgba(245, 158, 11, 0.12); --hr-warning-bd: rgba(245, 158, 11, 0.30);
+    --hr-warning-dot: #fbbf24;
+    --hr-danger-fg: #f87171;   --hr-danger-bg: rgba(239, 68, 68, 0.12);   --hr-danger-bd: rgba(239, 68, 68, 0.30);
+    --hr-danger-dot: #f87171;
+    --hr-info-fg: #60a5fa;     --hr-info-bg: rgba(59, 130, 246, 0.12);    --hr-info-bd: rgba(59, 130, 246, 0.30);
+    --hr-violet-fg: #a78bfa;   --hr-violet-bg: rgba(139, 92, 246, 0.14);  --hr-violet-bd: rgba(139, 92, 246, 0.32);
+    --hr-info-dot: #38bdf8;
+    --hr-neutral-fg: #cbd5e1;  --hr-neutral-bg: #1b2233;                  --hr-neutral-bd: #252c40;
+    --hr-neutral-dot: #94a3b8;
+    --hr-on-pastel:   #1f2937;   /* pastel fills stay light in dark mode, so the text stays dark */
+
+    --hr-g-profile:    #93c5fd;
+    --hr-g-employment: #6ee7b7;
+    --hr-g-benefits:   #fcd34d;
+    --hr-g-checklist:  #f9a8d4;
+    --hr-g-contract:   #a5b4fc;
+    --hr-g-referral:   #fde047;
+
+    --hr-chart-1: #60a5fa;
+    --hr-chart-2: #34d399;
+    --hr-chart-3: #fbbf24;
+    --hr-chart-4: #f87171;
+    --hr-chart-5: #a78bfa;
+    --hr-chart-6: #94a3b8;
+
+    --hr-sh-xs:    0 1px 2px rgba(0, 0, 0, 0.30);
+    --hr-sh-sm:    0 1px 3px rgba(0, 0, 0, 0.40);
+    --hr-sh-pop:   0 12px 30px rgba(0, 0, 0, 0.50), 0 2px 6px rgba(0, 0, 0, 0.30);
+    --hr-sh-modal: 0 24px 60px rgba(0, 0, 0, 0.60);
+    --hr-edge:     rgba(0, 0, 0, 0.45);
+    --hr-overlay:  rgba(0, 0, 0, 0.60);
+}
+
+/* ------------------------------------------------------------
+   Compatibility aliases — old Attendance variables still resolve
+   (safe to delete once no view references var(--att-*)).
+   ------------------------------------------------------------ */
+:root {
+    --att-bg:            var(--hr-surface);
+    --att-bg-alt:        var(--hr-surface-2);
+    --att-border:        var(--hr-border);
+    --att-text:          var(--hr-text);
+    --att-text-muted:    var(--hr-text-3);
+    --att-primary:       var(--hr-accent);
+    --att-primary-hover: var(--hr-accent-hover);
+    --att-ring:          var(--hr-ring);
+    --att-radius:        var(--hr-r-lg);
+}

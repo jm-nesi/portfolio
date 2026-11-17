@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] · Systems Developer</title>
+    <meta name="description" content="Systems developer with two years of experience building and maintaining internal HR information systems: attendance, leave, requests and an employee self-service portal.">
+    <meta property="og:title" content="[Your Name] · Systems Developer">
+    <meta property="og:description" content="Internal HR systems, built and maintained in production. Live demos included.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site.css">
+    <script>
+        try { const t = localStorage.getItem('pf-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
+</head>
+<body>
+
+<header class="nav">
+    <div class="wrap nav-inner">
+        <a href="#top" class="logo">[YN]<span>.</span></a>
+        <nav aria-label="Sections">
+            <a href="#projects">Projects</a>
+            <a href="#work">How I work</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">◐</button>
+    </div>
+</header>
+
+<main id="top">
+    <!-- ==================== HERO ==================== -->
+    <section class="hero wrap">
+        <p class="eyebrow">Systems Developer · [City, Country]</p>
+        <h1>I build the internal systems<br>an HR team runs on every day.</h1>
+        <p class="lead">Two years developing and maintaining an integrated HR information system for a staffing and BPO company: an HR back office and an employee self-service portal that share one live database. I cover employee records, attendance, leave, overtime and payroll inputs.</p>
+        <div class="cta">
+            <a class="btn btn-primary" href="demo/hr/index.html">Try the HR back office →</a>
+            <a class="btn" href="demo/portal/index.html">Try the Employee Portal →</a>
+        </div>
+        <ul class="stats" aria-label="At a glance">
+            <li><strong>2</strong><span>production apps maintained</span></li>
+            <li><strong>25+</strong><span>HR modules rebuilt or built</span></li>
+            <li><strong>~120</strong><span>daily employee users</span></li>
+            <li><strong>0</strong><span>downtime during the legacy migration</span></li>
+        </ul>
+        <p class="note">Numbers are approximate. Edit them to match your own figures.</p>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section class="wrap section" aria-labelledby="skillsTitle">
+        <h2 id="skillsTitle" class="section-title">Toolbox</h2>
+        <div class="skills">
+            <div><h3>Backend</h3><p>PHP 8.3 · Laravel 13 · Livewire 4 · Eloquent · MySQL / MariaDB · REST endpoints · DomPDF · scheduled jobs</p></div>
+            <div><h3>Frontend</h3><p>Blade · Alpine.js · Tailwind CSS · a hand-built CSS design system (tokens, dark mode) · vanilla JS · accessible tables and forms</p></div>
+            <div><h3>Operations</h3><p>Linux servers (CloudPanel) · Git · SSH · Nginx · database backups before migrations · legacy PHP maintenance</p></div>
+            <div><h3>Domain</h3><p>Attendance and shift rules (incl. graveyard shifts) · leave credits and protocols · infractions and points · HMO · employee movements</p></div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section class="wrap section" id="projects" aria-labelledby="projTitle">
+        <h2 id="projTitle" class="section-title">Featured projects</h2>
+        <p class="section-sub">Both demos are static copies with made-up data. The real systems run on a company server, so the company name, people and figures here are fictional.</p>
+
+        <article class="project">
+            <a class="shot" href="demo/hr/index.html" aria-label="Open the HR back-office demo">
+                <div class="mock mock-hr" aria-hidden="true">
+                    <div class="mock-side"><i class="mk-brand"></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+                    <div class="mock-body"><div class="mock-top"></div><div class="mock-kpis"><i></i><i></i><i></i><i></i></div><div class="mock-chart"><b style="height:60%"></b><b style="height:75%"></b><b style="height:55%"></b><b style="height:80%"></b><b style="height:70%"></b><b style="height:85%"></b><b style="height:65%"></b><b style="height:78%"></b></div><div class="mock-rows"><i></i><i></i><i></i></div></div>
+                </div>
+                <span class="url">hr.acmestaffing.demo</span>
+            </a>
+            <div class="project-body">
+                <p class="eyebrow">HR back office · Laravel 13 + Livewire 4</p>
+                <h3>HR Portal: integrated HRIS</h3>
+                <p>The internal system HR uses to manage people, attendance and every employee request. I rebuilt it module by module from a legacy plain-PHP site, while the old site kept running on the same live database.</p>
+                <ul class="points">
+                    <li><strong>Request queues:</strong> leave, time adjustments, overtime, emergency early-out, movement, work-from-home and site transfer. They share one list component, bulk actions and live sidebar counters.</li>
+                    <li><strong>Attendance correctness:</strong> the legacy summary rewrote attendance remarks every time someone opened the page, so payroll could read unfinished data. I moved that logic into a single finalizer that runs on save.</li>
+                    <li><strong>Safe writes:</strong> anything that touches attendance or leave credits is written only on an explicit HR confirm, and each change is recorded in an audit trail (HR Edit History).</li>
+                    <li><strong>Design system:</strong> token-based CSS (<code>theme.css → ui.css → page.css</code>) with dark mode. It replaced a 400 KB runtime Tailwind CDN script.</li>
+                    <li><strong>Setup tools:</strong> leave credits, leave protocols (daily slot limits per team and shift), HMO eligibility, and trackers for points, regularization and movements.</li>
+                </ul>
+                <div class="tags"><span>Laravel</span><span>Livewire</span><span>MySQL</span><span>Alpine.js</span><span>CSS design system</span><span>CSV exports</span></div>
+                <div class="cta"><a class="btn btn-primary" href="demo/hr/index.html">Open live demo</a><a class="btn" href="#case-hr">Read the case study</a></div>
+            </div>
+        </article>
+
+        <article class="project">
+            <a class="shot" href="demo/portal/index.html" aria-label="Open the Employee Portal demo">
+                <div class="mock mock-portal" aria-hidden="true">
+                    <div class="mock-rail"><i class="mk-gold"></i><i class="on"></i><i></i><i></i><i></i></div>
+                    <div class="mock-body"><div class="mock-hello"></div><div class="mock-cards"><i class="hero"></i><i></i><i></i></div><div class="mock-cal"><i></i><i></i><i class="g"></i><i></i><i class="y"></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i><i></i><i class="g"></i><i class="y"></i><i></i><i></i><i></i><i class="g"></i><i></i><i></i><i></i></div></div>
+                </div>
+                <span class="url">portal.acmestaffing.demo</span>
+            </a>
+            <div class="project-body">
+                <p class="eyebrow">Employee self-service · Laravel 13 + Tailwind</p>
+                <h3>Employee Portal</h3>
+                <p>The portal every employee uses to time in, check attendance, file requests and download payslips. Team leaders also use it to approve their team's requests. Everything feeds the HR back office in real time.</p>
+                <ul class="points">
+                    <li><strong>Dashboard:</strong> server clock and time-in, cut-off progress, leave balances, infraction points and announcements.</li>
+                    <li><strong>Apply flows:</strong> leave, time adjustment, overtime, emergency early-out and work-from-home, with validation against credits and leave protocols.</li>
+                    <li><strong>Approvals:</strong> a role-aware menu, so only approvers see team queues, with remarks and a notification inbox.</li>
+                    <li><strong>Records:</strong> PDF payslips (DomPDF), attendance calendar, infractions, memos and the company handbook.</li>
+                    <li><strong>Themes:</strong> light, dark and brand presets, plus seasonal themes an admin can switch on.</li>
+                </ul>
+                <div class="tags"><span>Laravel</span><span>Tailwind CSS</span><span>DomPDF</span><span>Role-based menus</span><span>Notifications</span></div>
+                <div class="cta"><a class="btn btn-primary" href="demo/portal/index.html">Open live demo</a></div>
+            </div>
+        </article>
+    </section>
+
+    <!-- ==================== CASE STUDY ==================== -->
+    <section class="wrap section" id="case-hr" aria-labelledby="caseTitle">
+        <h2 id="caseTitle" class="section-title">Case study: replacing a legacy HRIS without stopping it</h2>
+        <div class="case">
+            <div>
+                <h3>The situation</h3>
+                <p>HR, accounting and IT relied on a decade-old plain-PHP site. Each page had its own SQL, and business rules were copied across folders. The database was shared with payroll-facing pages, so it couldn't be taken offline or reshaped.</p>
+            </div>
+            <div>
+                <h3>The approach</h3>
+                <ul class="points">
+                    <li>I rebuilt one module at a time on a new subdomain, reading the same tables, so HR could switch over page by page.</li>
+                    <li>I treated each legacy page as the spec. I read the old code first, recorded each rule in a design note, and asked the owner before changing any pay, attendance or leave rule.</li>
+                    <li>Logic lives in services and writer classes, with thin Livewire components. Reads are kept apart from the few deliberate writes.</li>
+                    <li>A verified database backup runs before every migration. Destructive commands are never run against production.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>The result</h3>
+                <ul class="points">
+                    <li>Attendance remarks are now final when they're saved, not when someone opens a report.</li>
+                    <li>All request queues show live counts in one place. HR stopped checking seven separate legacy pages.</li>
+                    <li>One shared visual language, dark mode, and pages that work on a phone.</li>
+                    <li>A living design note for each module, so the next developer can pick it up.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== HOW I WORK ==================== -->
+    <section class="wrap section" id="work" aria-labelledby="workTitle">
+        <h2 id="workTitle" class="section-title">How I work</h2>
+        <div class="principles">
+            <div><span>01</span><h3>Production is sacred</h3><p>Backups before migrations, writes only on explicit confirmation, and no tests that could touch the live HR database.</p></div>
+            <div><span>02</span><h3>The legacy code is the spec</h3><p>I read the old behaviour before rebuilding it, and when a business rule changes, the owner signs off first.</p></div>
+            <div><span>03</span><h3>Consistency over novelty</h3><p>Shared components and design tokens, so a fix on one page is a fix on every page.</p></div>
+            <div><span>04</span><h3>Write it down</h3><p>Every module has a design note and change log, plus a manual test checklist for the people who use it.</p></div>
+        </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section class="wrap section" id="experience" aria-labelledby="expTitle">
+        <h2 id="expTitle" class="section-title">Experience</h2>
+        <ol class="timeline">
+            <li>
+                <p class="when">[Month YYYY] – Present</p>
+                <h3>Systems Developer · [Company, staffing / BPO]</h3>
+                <ul class="points">
+                    <li>Maintain and extend the company HRIS (HR back office) and the employee self-service portal, used daily by HR and every employee.</li>
+                    <li>Lead the migration of the legacy PHP HR site to Laravel 13 + Livewire 4: people, attendance, requests, setup, trackers and admin modules.</li>
+                    <li>Built the employee portal's apply and approval flows, PDF payslips, notifications and theme system.</li>
+                    <li>Handle production support: data fixes, attendance corrections, exports for payroll and management, and server upkeep.</li>
+                </ul>
+            </li>
+            <li>
+                <p class="when">[YYYY]</p>
+                <h3>[Degree] · [School]</h3>
+                <p>[Optional: capstone, certifications, or earlier role]</p>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="wrap section contact" id="contact" aria-labelledby="contactTitle">
+        <h2 id="contactTitle">Let's talk.</h2>
+        <p>Open to systems developer and full-stack PHP / Laravel roles.</p>
+        <div class="cta">
+            <a class="btn btn-primary" href="mailto:[you@example.com]">[you@example.com]</a>
+            <a class="btn" href="https://github.com/[your-github]" rel="noopener">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/[your-linkedin]" rel="noopener">LinkedIn</a>
+        </div>
+    </section>
+</main>
+
+<footer class="wrap footer">
+    <span>© <span id="year"></span> [Your Name]</span>
+    <span>Demos are anonymized replicas with fictional data. No company data is included.</span>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('pf-theme', root.dataset.theme); } catch (e) {}
+    });
+</script>
+</body>
+</html>
